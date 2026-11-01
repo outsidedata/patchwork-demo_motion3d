@@ -1,0 +1,2729 @@
+{
+ "held": {
+  "idle": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "walk": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "run": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "jump": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "fall": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "land": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "end"
+  },
+  "backflip": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "pickup": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bracedjump": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "end"
+  },
+  "bracedidle": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "both"
+  },
+  "bracedleft": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "both"
+  },
+  "bracedright": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "both"
+  },
+  "bracedclimb": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "begin"
+  },
+  "braceddrop": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "end"
+  },
+  "sitdown": {
+   "spot": ["Hips"],
+   "on": "end"
+  },
+  "seated": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "standup": {
+   "spot": ["Hips"],
+   "on": "begin"
+  },
+  "coldrub": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "coldlook": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "freejump": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "end"
+  },
+  "freeidle": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "both"
+  },
+  "freeleft": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "both"
+  },
+  "freeright": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "both"
+  },
+  "freedrop": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "end"
+  },
+  "barmove": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "both"
+  },
+  "barleft": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "both"
+  },
+  "sneakwalk": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "sneakback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ropeclimb": {
+   "spot": ["LeftHand", "RightHand"],
+   "on": "both"
+  },
+  "ropeswing": {
+   "on": "begin"
+  },
+  "wallclimb": {
+   "spot": ["LeftHand", "RightHand", "LeftFoot", "RightFoot"],
+   "on": "face",
+   "facing": "into"
+  },
+  "walldown": {
+   "spot": ["LeftHand", "RightHand", "LeftFoot", "RightFoot"],
+   "on": "face",
+   "facing": "into"
+  },
+  "wallside": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "face",
+   "facing": "along"
+  },
+  "vaultone": {
+   "on": "begin"
+  },
+  "teeter": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "jumpdown": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "end"
+  },
+  "stairsup": {
+   "on": "both"
+  },
+  "typing": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "liedown": {
+   "spot": ["Hips"],
+   "on": "end"
+  },
+  "bedidle": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "carin": {
+   "spot": ["Hips"],
+   "on": "end"
+  },
+  "drive": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "honk": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "carout": {
+   "spot": ["Hips"],
+   "on": "begin"
+  },
+  "poolin": {
+   "spot": ["Hips"],
+   "on": "end"
+  },
+  "tread": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "swimunder": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "rifleout": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "rifleaway": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "rifleidle": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflewalk": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflewalkleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflewalkright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflewalkback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflewalkforwardleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflewalkforwardright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflewalkbackleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflewalkbackright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflerun": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflerunleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflerunright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflerunback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflerunforwardleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflerunforwardright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflerunbackleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "riflerunbackright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "uawalkleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "uawalkright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "uawalkback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "uarunleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "uarunright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "uarunback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "uaguard": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "uaroll": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uadive": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uastepforward": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uastepback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uastepleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uastepright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uajab": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uacross": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uahook": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uauppercut": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uakick": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uahurricane": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uaflykick": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uammakick": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uafireball": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uataunt": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uahit": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uadeath": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uadeathfront": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uagetup": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uagetupfront": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "uakneelup": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gsidle": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "gswalk": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "gswalkback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "gswalkleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "gswalkright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "gsrun": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "gsrunback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "gsrunleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "gsrunright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "gsjump": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gsdraw": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "gssheath": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "gsslash1": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gsslash2": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gsslash3": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gscombo": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gsspin": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gsjumpattack": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gsslide": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gshilt": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gskick": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gspowerup": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gspose": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gsblockin": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gsblock": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "gsblockout": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gsblocked": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gshit": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "gsdeath": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ssidle": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "sswalk": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "sswalkback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "sswalkleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "sswalkright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ssrun": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ssrunback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ssrunleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ssrunright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ssjump": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ssdraw": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "sssheath": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "ssslash1": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ssslash2": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ssslash3": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "sshigh": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "sscombo": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ssjumpattack": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "sslow": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "sshilt": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "sskick": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "sspowerup": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ssplay": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ssblockin": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ssblock": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ssblockout": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ssblocked": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "sshit": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ssdeath": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "osdraw": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "ossheath": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "osrun": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "osoutward": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "osinward": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "osthrust": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "osadvance": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "oscombo": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "oscast": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axdraw": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "axsheath": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "axidle": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "axwalk": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "axwalkback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "axwalkleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "axwalkright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "axrun": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "axrunback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "axjump": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axhorizontal": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axbackhand": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axdownward": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axspinhigh": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axspinlow": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axcombo": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axjumpattack": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axkick": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axbattlecry": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axthump": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axblock": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "axblocked": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axhit": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "axdeath": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "rfidle": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "rfsprint": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "rfjump": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "rffall": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "rfland": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "end"
+  },
+  "rffire": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "rfreload": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "rfbutt": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "rfstab": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "rfkick": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "rfsignal": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "rfroll": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "rfdive": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "rfrollleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "rfrollright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "rfhit": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "rfdeath": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ptdraw": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "ptholster": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "ptidle": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ptwalk": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ptwalkback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ptrun": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ptrunback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ptstrafeleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ptstraferight": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ptjump": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ptaim": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "ptfire": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "ptwhip": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ptkneel": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ptkneeling": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "ptstand": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "ptfidget": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "pthit": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bwdraw": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "bwsheath": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "bwidle": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwwalk": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwwalkback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwwalkleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwwalkright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwrun": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwrunback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwrunleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwrunright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwaim": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "bwaimwalk": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwaimwalkback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwaimwalkleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwaimwalkright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "bwrecoil": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "bwnock": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "bwoverdraw": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "bwpunch": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bwkick": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bwblock": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bwdodgeforward": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bwdodgeback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bwdodgeleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bwdodgeright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bwdive": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bwfall": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "bwland": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "end"
+  },
+  "bwexamine": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bwhit": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "bwdeath": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "tcdraw": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "proneidle": {
+   "spot": [],
+   "on": "both"
+  },
+  "proneforward": {
+   "spot": [],
+   "on": "both"
+  },
+  "tcidle": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "tcwalk": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "tcwalkback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "tcwalkleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "tcwalkright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "tcrun": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "tcrunback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "tcrunleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "tcrunright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "tcjump": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "tcswing1": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "tcswing2": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "tcstab": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "tccombo3": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "tccombo4": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "tccombo5": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "tcwebs": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "tclight": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "tcinspect": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgdraw": {
+   "spot": ["Hips"],
+   "on": "both"
+  },
+  "mgidle": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "mgwalk": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "mgwalkback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "mgwalkleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "mgwalkright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "mgrun": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "mgrunback": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "mgrunleft": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "mgrunright": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "mgjump": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgland": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "end"
+  },
+  "mgbolt1": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgbolt2": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgbolt3": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgblast": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgfinisher": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgarea": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgnova": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgcast": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgponder": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgblockin": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgblock": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "both"
+  },
+  "mgblockout": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgblocked": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mghit": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "mgdeath": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  }
+ },
+ "offsets": {
+  "xbot": {
+   "idle": {
+    "beginOffset": [0, 0.066, 0],
+    "endOffset": [0, 0.066, 0],
+    "beginTurn": 0
+   },
+   "walk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "run": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "jump": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0.009, 0.405, 0.116],
+    "beginTurn": 0
+   },
+   "fall": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "land": {
+    "beginOffset": [-0.085, 1.114, 0.099],
+    "endOffset": [0, 0.078, 0],
+    "beginTurn": 0
+   },
+   "backflip": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "pickup": {
+    "beginOffset": [0, 0.074, 0],
+    "endOffset": [0.039, 0.073, -0.002],
+    "beginTurn": 0
+   },
+   "bracedjump": {
+    "beginOffset": [0.319, -1.28, -0.408],
+    "endOffset": [0, 0, 0],
+    "beginTurn": -38.5
+   },
+   "bracedidle": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bracedleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bracedright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bracedclimb": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [-0.134, 0.511, 0.574],
+    "beginTurn": 0
+   },
+   "braceddrop": {
+    "beginOffset": [0.076, 1.303, 0.716],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 36.6
+   },
+   "sitdown": {
+    "beginOffset": [0.002, 0.413, 0.479],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "seated": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "standup": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0.005, 0.413, 0.473],
+    "beginTurn": 0
+   },
+   "coldrub": {
+    "beginOffset": [0, 0.066, 0],
+    "endOffset": [0, 0.066, 0],
+    "beginTurn": 0
+   },
+   "coldlook": {
+    "beginOffset": [0, 0.073, 0],
+    "endOffset": [0, 0.073, 0],
+    "beginTurn": 0
+   },
+   "freejump": {
+    "beginOffset": [0.4, -1.421, -0.055],
+    "endOffset": [0, 0, 0],
+    "beginTurn": -44.9
+   },
+   "freeidle": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "freeleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "freeright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "freedrop": {
+    "beginOffset": [0.263, 0.599, 0.275],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 44.9
+   },
+   "barmove": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "barleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "sneakwalk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "sneakback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ropeclimb": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ropeswing": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0.033, 0, 5.948],
+    "beginTurn": 0
+   },
+   "wallclimb": {
+    "beginOffset": [0, 0.14, 0],
+    "endOffset": [0, 0.14, 0],
+    "beginTurn": -1.22,
+    "normal": [-0.021, 0, -1]
+   },
+   "walldown": {
+    "beginOffset": [0, 0.166, 0],
+    "endOffset": [0, 0.166, 0],
+    "beginTurn": 1.54,
+    "normal": [0.027, 0, -1]
+   },
+   "wallside": {
+    "beginOffset": [0, 1.243, 0],
+    "endOffset": [0.844, 1.179, 3.241],
+    "beginTurn": 39.05,
+    "normal": [-0.777, 0, -0.63]
+   },
+   "vaultone": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0.014, 0, 5.093],
+    "beginTurn": 0
+   },
+   "teeter": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "jumpdown": {
+    "beginOffset": [0.058, 0.715, -1.196],
+    "endOffset": [0, 0.082, 0],
+    "beginTurn": 0
+   },
+   "stairsup": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "typing": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "liedown": {
+    "beginOffset": [-0.02, 0.067, 0.467],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bedidle": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "carin": {
+    "beginOffset": [1.888, 0.126, 0.382],
+    "endOffset": [0, 0, 0],
+    "beginTurn": -97.4
+   },
+   "drive": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "honk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "carout": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [1.984, 0.16, 0.188],
+    "beginTurn": 0
+   },
+   "poolin": {
+    "beginOffset": [-0.156, 2.579, -1.018],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "tread": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "swimunder": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "rifleout": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "rifleaway": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "rifleidle": {
+    "beginOffset": [0, 0.08, 0],
+    "endOffset": [0, 0.08, 0],
+    "beginTurn": 0
+   },
+   "riflewalk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflewalkleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflewalkright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflewalkback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflewalkforwardleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflewalkforwardright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflewalkbackleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflewalkbackright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflerun": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflerunleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflerunright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflerunback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflerunforwardleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflerunforwardright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflerunbackleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "riflerunbackright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "uawalkleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "uawalkright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "uawalkback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "uarunleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "uarunright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "uarunback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "uaguard": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "uaroll": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0.066, 0.103, 5.463],
+    "beginTurn": 0
+   },
+   "uadive": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0.022, 0.092, 5.781],
+    "beginTurn": 0
+   },
+   "uastepforward": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.098, 1.137],
+    "beginTurn": 0
+   },
+   "uastepback": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.074, -0.722],
+    "beginTurn": 0
+   },
+   "uastepleft": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0.545, 0.083, 0],
+    "beginTurn": 0
+   },
+   "uastepright": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [-0.723, 0.083, 0],
+    "beginTurn": 0
+   },
+   "uajab": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "uacross": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "uahook": {
+    "beginOffset": [0, 0.079, 0],
+    "endOffset": [0, 0.079, 0],
+    "beginTurn": 0
+   },
+   "uauppercut": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "uakick": {
+    "beginOffset": [0, 0.082, 0],
+    "endOffset": [0, 0.09, 0.652],
+    "beginTurn": 0
+   },
+   "uahurricane": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [-0.002, 0.044, 3.44],
+    "beginTurn": 0
+   },
+   "uaflykick": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [-0.05, -0.105, 2.369],
+    "beginTurn": 0
+   },
+   "uammakick": {
+    "beginOffset": [0, 0.096, 0],
+    "endOffset": [0, 0.096, 0],
+    "beginTurn": 0
+   },
+   "uafireball": {
+    "beginOffset": [0, 0.092, 0],
+    "endOffset": [0, 0.092, 0],
+    "beginTurn": 0
+   },
+   "uataunt": {
+    "beginOffset": [0, 0.079, 0],
+    "endOffset": [0, 0.079, 0],
+    "beginTurn": 0
+   },
+   "uahit": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "uadeath": {
+    "beginOffset": [0, 0.075, 0],
+    "endOffset": [0.009, 0.021, -0.057],
+    "beginTurn": 0
+   },
+   "uadeathfront": {
+    "beginOffset": [0, 0.081, 0],
+    "endOffset": [0.123, 0.064, 0.819],
+    "beginTurn": 0
+   },
+   "uagetup": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0.02, 0.057, 0.022],
+    "beginTurn": 0
+   },
+   "uagetupfront": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0.052, 0.055, 0.623],
+    "beginTurn": 0
+   },
+   "uakneelup": {
+    "beginOffset": [0, 0.109, 0],
+    "endOffset": [0, 0.109, 0],
+    "beginTurn": 0
+   },
+   "gsidle": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "gswalk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "gswalkback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "gswalkleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "gswalkright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "gsrun": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "gsrunback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "gsrunleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "gsrunright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "gsjump": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0.023, 1.741],
+    "beginTurn": 0
+   },
+   "gsdraw": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "gssheath": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "gsslash1": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.09, 1.15],
+    "beginTurn": 0
+   },
+   "gsslash2": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "gsslash3": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.117, 3.164],
+    "beginTurn": 0
+   },
+   "gscombo": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "gsspin": {
+    "beginOffset": [0, 0.165, 0],
+    "endOffset": [-0.027, 0.133, 2.402],
+    "beginTurn": 0
+   },
+   "gsjumpattack": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [-0.1, -0.02, 3.266],
+    "beginTurn": 0
+   },
+   "gsslide": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [-0.094, -0.016, 3.572],
+    "beginTurn": 0
+   },
+   "gshilt": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "gskick": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "gspowerup": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "gspose": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "gsblockin": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [-0.081, 0.062, 0.042],
+    "beginTurn": 0
+   },
+   "gsblock": {
+    "beginOffset": [0, 0.087, 0],
+    "endOffset": [0, 0.087, 0],
+    "beginTurn": 0
+   },
+   "gsblockout": {
+    "beginOffset": [0, 0.087, 0],
+    "endOffset": [0.081, 0.101, -0.043],
+    "beginTurn": 0
+   },
+   "gsblocked": {
+    "beginOffset": [0, 0.087, 0],
+    "endOffset": [0, 0.087, 0],
+    "beginTurn": 0
+   },
+   "gshit": {
+    "beginOffset": [0, 0.116, 0],
+    "endOffset": [0, 0.116, 0],
+    "beginTurn": 0
+   },
+   "gsdeath": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0.003, -0.001, -0.421],
+    "beginTurn": 0
+   },
+   "ssidle": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "sswalk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "sswalkback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "sswalkleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "sswalkright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ssrun": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ssrunback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ssrunleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ssrunright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ssjump": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "ssdraw": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "sssheath": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ssslash1": {
+    "beginOffset": [0, 0.111, 0],
+    "endOffset": [0, 0.111, 0],
+    "beginTurn": 0
+   },
+   "ssslash2": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.115, 2.449],
+    "beginTurn": 0
+   },
+   "ssslash3": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "sshigh": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [-0.017, -0.115, 3.867],
+    "beginTurn": 0
+   },
+   "sscombo": {
+    "beginOffset": [0, 0.082, 0],
+    "endOffset": [0, 0.096, 1.039],
+    "beginTurn": 0
+   },
+   "ssjumpattack": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [1.087, -0.118, 2.926],
+    "beginTurn": 0
+   },
+   "sslow": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "sshilt": {
+    "beginOffset": [0, 0.24, 0],
+    "endOffset": [-0.018, 0.11, 2.651],
+    "beginTurn": 0
+   },
+   "sskick": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "sspowerup": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "ssplay": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "ssblockin": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [-0.041, 0.079, 0.137],
+    "beginTurn": 0
+   },
+   "ssblock": {
+    "beginOffset": [0, 0.086, 0],
+    "endOffset": [0, 0.086, 0],
+    "beginTurn": 0
+   },
+   "ssblockout": {
+    "beginOffset": [0, 0.086, 0],
+    "endOffset": [0.009, 0.09, -0.127],
+    "beginTurn": 0
+   },
+   "ssblocked": {
+    "beginOffset": [0, 0.086, 0],
+    "endOffset": [0, 0.086, 0],
+    "beginTurn": 0
+   },
+   "sshit": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "ssdeath": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0.156, 0.006, -0.547],
+    "beginTurn": 0
+   },
+   "osdraw": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ossheath": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "osrun": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "osoutward": {
+    "beginOffset": [0, 0.081, 0],
+    "endOffset": [0, 0.081, 0],
+    "beginTurn": 0
+   },
+   "osinward": {
+    "beginOffset": [0, 0.08, 0],
+    "endOffset": [0, 0.08, 0],
+    "beginTurn": 0
+   },
+   "osthrust": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "osadvance": {
+    "beginOffset": [0, 0.08, 0],
+    "endOffset": [0, 0.08, 0],
+    "beginTurn": 0
+   },
+   "oscombo": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.099, 1.162],
+    "beginTurn": 0
+   },
+   "oscast": {
+    "beginOffset": [0, 0.082, 0],
+    "endOffset": [0, 0.082, 0],
+    "beginTurn": 0
+   },
+   "axdraw": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "axsheath": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "axidle": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axwalk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "axwalkback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "axwalkleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "axwalkright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "axrun": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "axrunback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "axjump": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axhorizontal": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axbackhand": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axdownward": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axspinhigh": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axspinlow": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axcombo": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axjumpattack": {
+    "beginOffset": [0, 0.185, 0],
+    "endOffset": [-0.02, 0.116, 3.862],
+    "beginTurn": 0
+   },
+   "axkick": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axbattlecry": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axthump": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axblock": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "axblocked": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "axhit": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "axdeath": {
+    "beginOffset": [0, 0.072, 0],
+    "endOffset": [-0.179, 0.027, 0.418],
+    "beginTurn": 0
+   },
+   "rfidle": {
+    "beginOffset": [0, 0.082, 0],
+    "endOffset": [0, 0.082, 0],
+    "beginTurn": 0
+   },
+   "rfsprint": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "rfjump": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [-0.01, 0.443, -0.008],
+    "beginTurn": 0
+   },
+   "rffall": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "rfland": {
+    "beginOffset": [-0.01, 0.526, -0.008],
+    "endOffset": [0, 0.082, 0],
+    "beginTurn": 0
+   },
+   "rffire": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "rfreload": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "rfbutt": {
+    "beginOffset": [0, 0.078, 0],
+    "endOffset": [0, 0.078, 0],
+    "beginTurn": 0
+   },
+   "rfstab": {
+    "beginOffset": [0, 0.083, 0],
+    "endOffset": [0, 0.083, 0],
+    "beginTurn": 0
+   },
+   "rfkick": {
+    "beginOffset": [0, 0.072, 0],
+    "endOffset": [0.782, 0.076, 0.092],
+    "beginTurn": 0
+   },
+   "rfsignal": {
+    "beginOffset": [0, 0.142, 0],
+    "endOffset": [0, 0.142, 0],
+    "beginTurn": 0
+   },
+   "rfroll": {
+    "beginOffset": [0, 0.075, 0],
+    "endOffset": [0, 0.123, 3.748],
+    "beginTurn": 0
+   },
+   "rfdive": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [-0.087, -0.018, 5.091],
+    "beginTurn": 0
+   },
+   "rfrollleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [1.142, 0, 0.015],
+    "beginTurn": 0
+   },
+   "rfrollright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [-1.142, 0, 0.015],
+    "beginTurn": 0
+   },
+   "rfhit": {
+    "beginOffset": [0, 0.081, 0],
+    "endOffset": [0, 0.081, 0],
+    "beginTurn": 0
+   },
+   "rfdeath": {
+    "beginOffset": [0, 0.082, 0],
+    "endOffset": [0.153, 0.034, 0.286],
+    "beginTurn": 0
+   },
+   "ptdraw": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ptholster": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ptidle": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "ptwalk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ptwalkback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ptrun": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ptrunback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ptstrafeleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ptstraferight": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ptjump": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "ptaim": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ptfire": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "ptwhip": {
+    "beginOffset": [0, 0.075, 0],
+    "endOffset": [0, 0.075, 0],
+    "beginTurn": 0
+   },
+   "ptkneel": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [-0.02, 0.087, -0.06],
+    "beginTurn": 0
+   },
+   "ptkneeling": {
+    "beginOffset": [0, 0.161, 0],
+    "endOffset": [0, 0.161, 0],
+    "beginTurn": 0
+   },
+   "ptstand": {
+    "beginOffset": [0, 0.161, 0],
+    "endOffset": [0.02, 0.149, 0.06],
+    "beginTurn": 0
+   },
+   "ptfidget": {
+    "beginOffset": [0, 0.088, 0],
+    "endOffset": [0.004, 0.084, 0],
+    "beginTurn": 0
+   },
+   "pthit": {
+    "beginOffset": [0, 0.075, 0],
+    "endOffset": [0, 0.075, 0],
+    "beginTurn": 0
+   },
+   "bwdraw": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwsheath": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwidle": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "bwwalk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwwalkback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwwalkleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwwalkright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwrun": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwrunback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwrunleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwrunright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwaim": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwaimwalk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwaimwalkback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwaimwalkleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwaimwalkright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwrecoil": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwnock": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwoverdraw": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwpunch": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "bwkick": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "bwblock": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "bwdodgeforward": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.112, 2.158],
+    "beginTurn": 0
+   },
+   "bwdodgeback": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.056, -2.19],
+    "beginTurn": 0
+   },
+   "bwdodgeleft": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [1.868, 0.084, 0],
+    "beginTurn": 0
+   },
+   "bwdodgeright": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [-1.92, 0.084, 0],
+    "beginTurn": 0
+   },
+   "bwdive": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.131, 3.614],
+    "beginTurn": 0
+   },
+   "bwfall": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "bwland": {
+    "beginOffset": [-0.047, 0.37, 0.049],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "bwexamine": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "bwhit": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0, 0.084, 0],
+    "beginTurn": 0
+   },
+   "bwdeath": {
+    "beginOffset": [0, 0.084, 0],
+    "endOffset": [0.193, 0.049, -0.279],
+    "beginTurn": 0
+   },
+   "tcdraw": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "proneidle": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "proneforward": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "tcidle": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "tcwalk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "tcwalkback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "tcwalkleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "tcwalkright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "tcrun": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "tcrunback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "tcrunleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "tcrunright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "tcjump": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "tcswing1": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "tcswing2": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "tcstab": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "tccombo3": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "tccombo4": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.099, 1.811],
+    "beginTurn": 0
+   },
+   "tccombo5": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.099, 1.807],
+    "beginTurn": 0
+   },
+   "tcwebs": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "tclight": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "tcinspect": {
+    "beginOffset": [0, 0.076, 0],
+    "endOffset": [0, 0.076, 0],
+    "beginTurn": 0
+   },
+   "mgdraw": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "mgidle": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "mgwalk": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "mgwalkback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "mgwalkleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "mgwalkright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "mgrun": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "mgrunback": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "mgrunleft": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "mgrunright": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "mgjump": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "mgland": {
+    "beginOffset": [-0.569, 0.933, -0.84],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 37.2
+   },
+   "mgbolt1": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "mgbolt2": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "mgbolt3": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "mgblast": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "mgfinisher": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "mgarea": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "mgnova": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "mgcast": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "mgponder": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.085, 0],
+    "beginTurn": 0
+   },
+   "mgblockin": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [-0.067, 0.094, -0.081],
+    "beginTurn": 0
+   },
+   "mgblock": {
+    "beginOffset": [0, 0.088, 0],
+    "endOffset": [0, 0.088, 0],
+    "beginTurn": 0
+   },
+   "mgblockout": {
+    "beginOffset": [0, 0.088, 0],
+    "endOffset": [0.066, 0.08, 0.086],
+    "beginTurn": 0
+   },
+   "mgblocked": {
+    "beginOffset": [0, 0.088, 0],
+    "endOffset": [0, 0.088, 0],
+    "beginTurn": 0
+   },
+   "mghit": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [0, 0.071, -1.126],
+    "beginTurn": 0
+   },
+   "mgdeath": {
+    "beginOffset": [0, 0.085, 0],
+    "endOffset": [-0.305, 0.054, -0.092],
+    "beginTurn": 0
+   }
+  }
+ }
+}

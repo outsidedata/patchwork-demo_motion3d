@@ -1,0 +1,1091 @@
+{
+ "bodies": {
+  "xbot": "characters/xbot/xbot.fbx"
+ },
+ "aim": {
+  "across": 1.05,
+  "up": 0.8,
+  "down": 0.8
+ },
+ "clips": {
+  "idle": {
+   "file": "packs/Male Locomotion Pack 30FPS/idle.fbx",
+   "loop": true
+  },
+  "walk": {
+   "file": "packs/Male Locomotion Pack 30FPS/walking.fbx",
+   "loop": true,
+   "gear": 0,
+   "stance": "stand"
+  },
+  "run": {
+   "file": "packs/Male Locomotion Pack 30FPS/standard run.fbx",
+   "loop": true,
+   "gear": 0,
+   "stance": "stand"
+  },
+  "jump": {
+   "file": "packs/mixamo-motions/Jumping Up (2).fbx"
+  },
+  "fall": {
+   "file": "packs/mixamo-motions/Falling Idle.fbx",
+   "loop": true
+  },
+  "land": {
+   "file": "packs/mixamo-motions/Falling To Landing.fbx"
+  },
+  "backflip": {
+   "file": "packs/mixamo-motions/Backflip.fbx"
+  },
+  "pickup": {
+   "file": "packs/mixamo-motions/Picking Up.fbx"
+  },
+  "bracedjump": {
+   "file": "packs/mixamo-motions/Idle To Braced Hang.fbx"
+  },
+  "bracedidle": {
+   "file": "packs/mixamo-motions/Hanging Idle (3).fbx",
+   "loop": true
+  },
+  "bracedleft": {
+   "file": "packs/mixamo-motions/Braced Hang Shimmy (2).fbx",
+   "loop": true
+  },
+  "bracedright": {
+   "file": "packs/mixamo-motions/Braced Hang Shimmy.fbx",
+   "loop": true
+  },
+  "bracedclimb": {
+   "file": "packs/mixamo-motions/Braced Hang To Crouch.fbx"
+  },
+  "braceddrop": {
+   "file": "packs/mixamo-motions/Braced Hang Drop (2).fbx"
+  },
+  "sitdown": {
+   "file": "packs/mixamo-motions/Stand To Sit.fbx"
+  },
+  "seated": {
+   "file": "packs/mixamo-motions/Sitting Idle (2).fbx",
+   "loop": true
+  },
+  "standup": {
+   "file": "packs/mixamo-motions/Sit To Stand.fbx"
+  },
+  "coldrub": {
+   "file": "packs/mixamo-motions/Shoulder Rubbing.fbx",
+   "loop": true
+  },
+  "coldlook": {
+   "file": "packs/mixamo-motions/Nervously Look Around.fbx",
+   "loop": true
+  },
+  "freejump": {
+   "file": "packs/mixamo-motions/Stand To Freehang.fbx"
+  },
+  "freeidle": {
+   "file": "packs/mixamo-motions/Hanging Idle.fbx",
+   "loop": true
+  },
+  "freeleft": {
+   "file": "packs/mixamo-motions/Left Shimmy.fbx",
+   "loop": true
+  },
+  "freeright": {
+   "file": "packs/mixamo-motions/Right Shimmy.fbx",
+   "loop": true
+  },
+  "freedrop": {
+   "file": "packs/mixamo-motions/Freehang Drop.fbx"
+  },
+  "barmove": {
+   "file": "packs/mixamo-motions/Moving While Hanging.fbx",
+   "loop": true
+  },
+  "barleft": {
+   "mirror": "barmove"
+  },
+  "sneakwalk": {
+   "file": "packs/mixamo-motions/Sneak Walk.fbx",
+   "loop": true
+  },
+  "sneakback": {
+   "file": "packs/mixamo-motions/Cautious Backward Walk.fbx",
+   "loop": true
+  },
+  "ropeclimb": {
+   "file": "packs/mixamo-motions/Climbing A Rope (2).fbx",
+   "loop": true
+  },
+  "ropeswing": {
+   "file": "packs/mixamo-motions/Swinging.fbx"
+  },
+  "wallclimb": {
+   "file": "packs/mixamo-motions/Climbing Up Wall.fbx",
+   "loop": true
+  },
+  "walldown": {
+   "file": "packs/mixamo-motions/Climbing Down Wall.fbx",
+   "loop": true
+  },
+  "wallside": {
+   "file": "packs/mixamo-motions/Wall Run (2).fbx"
+  },
+  "vaultone": {
+   "file": "packs/mixamo-motions/Jumping (2).fbx"
+  },
+  "teeter": {
+   "file": "packs/mixamo-motions/Teeter (2).fbx",
+   "loop": true
+  },
+  "jumpdown": {
+   "file": "packs/mixamo-motions/Jump Down.fbx"
+  },
+  "stairsup": {
+   "file": "packs/mixamo-motions/Ascending Stairs.fbx",
+   "loop": true
+  },
+  "typing": {
+   "file": "packs/mixamo-motions/Typing.fbx",
+   "loop": true
+  },
+  "liedown": {
+   "file": "packs/mixamo-motions/Lying Down.fbx"
+  },
+  "bedidle": {
+   "file": "packs/mixamo-motions/Laying Idle (2).fbx",
+   "loop": true
+  },
+  "carin": {
+   "file": "packs/mixamo-motions/Entering Car.fbx"
+  },
+  "drive": {
+   "file": "packs/mixamo-motions/Driving.fbx",
+   "loop": true
+  },
+  "honk": {
+   "file": "packs/mixamo-motions/Honking Horn.fbx"
+  },
+  "carout": {
+   "file": "packs/mixamo-motions/Exiting Car.fbx"
+  },
+  "poolin": {
+   "file": "packs/mixamo-motions/Falling Into Pool (2).fbx"
+  },
+  "tread": {
+   "file": "packs/mixamo-motions/Treading Water.fbx",
+   "loop": true
+  },
+  "swimunder": {
+   "file": "packs/mixamo-motions/Swimming.fbx",
+   "loop": true
+  },
+  "rifleout": {
+   "file": "packs/mixamo-motions/Rifle Pull Out.fbx"
+  },
+  "rifleaway": {
+   "file": "packs/mixamo-motions/Rifle Put Away.fbx"
+  },
+  "rifleidle": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/idle aiming.fbx",
+   "loop": true
+  },
+  "riflewalk": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/walk forward.fbx",
+   "loop": true,
+   "gear": 0,
+   "stance": "stand"
+  },
+  "riflewalkleft": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/walk left.fbx",
+   "loop": true,
+   "gear": 90,
+   "stance": "stand"
+  },
+  "riflewalkright": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/walk right.fbx",
+   "loop": true,
+   "gear": -90,
+   "stance": "stand"
+  },
+  "riflewalkback": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/walk backward.fbx",
+   "loop": true,
+   "gear": 180,
+   "stance": "stand"
+  },
+  "riflewalkforwardleft": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/walk forward left.fbx",
+   "loop": true,
+   "gear": 45,
+   "stance": "stand"
+  },
+  "riflewalkforwardright": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/walk forward right.fbx",
+   "loop": true,
+   "gear": -45,
+   "stance": "stand"
+  },
+  "riflewalkbackleft": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/walk backward left.fbx",
+   "loop": true,
+   "gear": 135,
+   "stance": "stand"
+  },
+  "riflewalkbackright": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/walk backward right.fbx",
+   "loop": true,
+   "gear": -135,
+   "stance": "stand"
+  },
+  "riflerun": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/run forward.fbx",
+   "loop": true,
+   "gear": 0,
+   "stance": "stand"
+  },
+  "riflerunleft": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/run left.fbx",
+   "loop": true,
+   "gear": 90,
+   "stance": "stand"
+  },
+  "riflerunright": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/run right.fbx",
+   "loop": true,
+   "gear": -90,
+   "stance": "stand"
+  },
+  "riflerunback": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/run backward.fbx",
+   "loop": true,
+   "gear": 180,
+   "stance": "stand"
+  },
+  "riflerunforwardleft": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/run forward left.fbx",
+   "loop": true,
+   "gear": 45,
+   "stance": "stand"
+  },
+  "riflerunforwardright": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/run forward right.fbx",
+   "loop": true,
+   "gear": -45,
+   "stance": "stand"
+  },
+  "riflerunbackleft": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/run backward left.fbx",
+   "loop": true,
+   "gear": 135,
+   "stance": "stand"
+  },
+  "riflerunbackright": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/run backward right.fbx",
+   "loop": true,
+   "gear": -135,
+   "stance": "stand"
+  },
+  "uawalkleft": {
+   "file": "packs/Male Locomotion Pack 30FPS/left strafe walking.fbx",
+   "loop": true
+  },
+  "uawalkright": {
+   "file": "packs/Male Locomotion Pack 30FPS/right strafe walking.fbx",
+   "loop": true
+  },
+  "uawalkback": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/unarmed walk back.fbx",
+   "loop": true
+  },
+  "uarunleft": {
+   "file": "packs/Male Locomotion Pack 30FPS/left strafe.fbx",
+   "loop": true
+  },
+  "uarunright": {
+   "file": "packs/Male Locomotion Pack 30FPS/right strafe.fbx",
+   "loop": true
+  },
+  "uarunback": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/unarmed run back.fbx",
+   "loop": true
+  },
+  "uaguard": {
+   "file": "packs/mixamo-motions/Center Block.fbx",
+   "loop": true
+  },
+  "uaroll": {
+   "file": "packs/mixamo-motions/Quick Roll To Run.fbx"
+  },
+  "uadive": {
+   "file": "packs/mixamo-motions/Sprinting Forward Roll.fbx"
+  },
+  "uastepforward": {
+   "file": "packs/Boxing/Long Step Forward.fbx"
+  },
+  "uastepback": {
+   "file": "packs/mixamo-motions/Step Backward (2).fbx"
+  },
+  "uastepleft": {
+   "file": "packs/mixamo-motions/Long Left Side Step.fbx"
+  },
+  "uastepright": {
+   "file": "packs/mixamo-motions/Long Right Side Step.fbx"
+  },
+  "uajab": {
+   "file": "packs/mixamo-motions/Lead Jab (4).fbx"
+  },
+  "uacross": {
+   "file": "packs/mixamo-motions/Cross Punch.fbx"
+  },
+  "uahook": {
+   "file": "packs/mixamo-motions/Hook Punch.fbx"
+  },
+  "uauppercut": {
+   "file": "packs/mixamo-motions/Uppercut.fbx"
+  },
+  "uakick": {
+   "file": "packs/mixamo-motions/Roundhouse Kick.fbx"
+  },
+  "uahurricane": {
+   "file": "packs/mixamo-motions/Hurricane Kick.fbx"
+  },
+  "uaflykick": {
+   "file": "packs/mixamo-motions/Flying Kick.fbx"
+  },
+  "uammakick": {
+   "file": "packs/mixamo-motions/Mma Kick.fbx"
+  },
+  "uafireball": {
+   "file": "packs/mixamo-motions/Fireball.fbx"
+  },
+  "uataunt": {
+   "file": "packs/mixamo-motions/Taunt.fbx"
+  },
+  "uahit": {
+   "file": "packs/Boxing/Head Hit.fbx"
+  },
+  "uadeath": {
+   "file": "packs/mixamo-motions/Dying Backwards.fbx"
+  },
+  "uadeathfront": {
+   "file": "packs/mixamo-motions/Dying.fbx"
+  },
+  "uagetup": {
+   "file": "packs/mixamo-motions/Getting Up (3).fbx"
+  },
+  "uagetupfront": {
+   "file": "packs/mixamo-motions/Getting Up (4).fbx"
+  },
+  "uakneelup": {
+   "file": "packs/mixamo-motions/Kneeling.fbx"
+  },
+  "gsidle": {
+   "file": "packs/Great Sword Pack 30FPS/great sword idle (3).fbx",
+   "loop": true
+  },
+  "gswalk": {
+   "file": "packs/Great Sword Pack 30FPS/great sword walk.fbx",
+   "loop": true
+  },
+  "gswalkback": {
+   "file": "packs/Great Sword Pack 30FPS/great sword walk (2).fbx",
+   "loop": true
+  },
+  "gswalkleft": {
+   "file": "packs/Great Sword Pack 30FPS/great sword strafe (2).fbx",
+   "loop": true
+  },
+  "gswalkright": {
+   "file": "packs/Great Sword Pack 30FPS/great sword strafe.fbx",
+   "loop": true
+  },
+  "gsrun": {
+   "file": "packs/Great Sword Pack 30FPS/great sword run (2).fbx",
+   "loop": true
+  },
+  "gsrunback": {
+   "file": "packs/Great Sword Pack 30FPS/great sword run.fbx",
+   "loop": true
+  },
+  "gsrunleft": {
+   "file": "packs/Great Sword Pack 30FPS/great sword strafe (3).fbx",
+   "loop": true
+  },
+  "gsrunright": {
+   "file": "packs/Great Sword Pack 30FPS/great sword strafe (4).fbx",
+   "loop": true
+  },
+  "gsjump": {
+   "file": "packs/Great Sword Pack 30FPS/great sword jump.fbx"
+  },
+  "gsdraw": {
+   "file": "packs/Great Sword Pack 30FPS/draw a great sword 1.fbx"
+  },
+  "gssheath": {
+   "file": "packs/mixamo-motions/Sheath A Great Sword 1.fbx"
+  },
+  "gsslash1": {
+   "file": "packs/Great Sword Pack 30FPS/great sword slash (4).fbx"
+  },
+  "gsslash2": {
+   "file": "packs/Great Sword Pack 30FPS/great sword slash (3).fbx"
+  },
+  "gsslash3": {
+   "file": "packs/Great Sword Pack 30FPS/great sword slash (2).fbx"
+  },
+  "gscombo": {
+   "file": "packs/Great Sword Pack 30FPS/great sword slash.fbx"
+  },
+  "gsspin": {
+   "file": "packs/Great Sword Pack 30FPS/great sword high spin attack.fbx"
+  },
+  "gsjumpattack": {
+   "file": "packs/Great Sword Pack 30FPS/great sword jump attack.fbx"
+  },
+  "gsslide": {
+   "file": "packs/Great Sword Pack 30FPS/great sword slide attack.fbx"
+  },
+  "gshilt": {
+   "file": "packs/Great Sword Pack 30FPS/great sword attack.fbx"
+  },
+  "gskick": {
+   "file": "packs/Great Sword Pack 30FPS/great sword kick (2).fbx"
+  },
+  "gspowerup": {
+   "file": "packs/Great Sword Pack 30FPS/great sword power up.fbx"
+  },
+  "gspose": {
+   "file": "packs/Great Sword Pack 30FPS/great sword idle (2).fbx"
+  },
+  "gsblockin": {
+   "file": "packs/Great Sword Pack 30FPS/great sword blocking.fbx"
+  },
+  "gsblock": {
+   "file": "packs/Great Sword Pack 30FPS/great sword blocking (2).fbx",
+   "loop": true
+  },
+  "gsblockout": {
+   "file": "packs/Great Sword Pack 30FPS/great sword blocking (3).fbx"
+  },
+  "gsblocked": {
+   "file": "packs/Great Sword Pack 30FPS/great sword impact.fbx"
+  },
+  "gshit": {
+   "file": "packs/Great Sword Pack 30FPS/great sword impact (5).fbx"
+  },
+  "gsdeath": {
+   "file": "packs/Great Sword Pack 30FPS/two handed sword death.fbx"
+  },
+  "ssidle": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield idle (4).fbx",
+   "loop": true
+  },
+  "sswalk": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield walk.fbx",
+   "loop": true
+  },
+  "sswalkback": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield walk (2).fbx",
+   "loop": true
+  },
+  "sswalkleft": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield strafe (2).fbx",
+   "loop": true
+  },
+  "sswalkright": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield strafe.fbx",
+   "loop": true
+  },
+  "ssrun": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield run.fbx",
+   "loop": true
+  },
+  "ssrunback": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield run (2).fbx",
+   "loop": true
+  },
+  "ssrunleft": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield strafe (3).fbx",
+   "loop": true
+  },
+  "ssrunright": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield strafe (4).fbx",
+   "loop": true
+  },
+  "ssjump": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield jump (2).fbx"
+  },
+  "ssdraw": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/draw sword 1.fbx"
+  },
+  "sssheath": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sheath sword 1.fbx"
+  },
+  "ssslash1": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash (5).fbx"
+  },
+  "ssslash2": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash (2).fbx"
+  },
+  "ssslash3": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash.fbx"
+  },
+  "sshigh": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield attack.fbx"
+  },
+  "sscombo": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash (4).fbx"
+  },
+  "ssjumpattack": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield attack (2).fbx"
+  },
+  "sslow": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield attack (4).fbx"
+  },
+  "sshilt": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield attack (3).fbx"
+  },
+  "sskick": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield kick.fbx"
+  },
+  "sspowerup": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield power up.fbx"
+  },
+  "ssplay": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield idle (2).fbx"
+  },
+  "ssblockin": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield block.fbx"
+  },
+  "ssblock": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield block idle.fbx",
+   "loop": true
+  },
+  "ssblockout": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield block (2).fbx"
+  },
+  "ssblocked": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield impact.fbx"
+  },
+  "sshit": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield impact (3).fbx"
+  },
+  "ssdeath": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield death.fbx"
+  },
+  "osdraw": {
+   "file": "packs/mixamo-motions/Withdrawing Sword.fbx"
+  },
+  "ossheath": {
+   "file": "packs/mixamo-motions/Sheathing Sword.fbx"
+  },
+  "osrun": {
+   "file": "packs/mixamo-motions/Run With Sword.fbx",
+   "loop": true
+  },
+  "osoutward": {
+   "file": "packs/mixamo-motions/Stable Sword Outward Slash.fbx"
+  },
+  "osinward": {
+   "file": "packs/mixamo-motions/Stable Sword Inward Slash.fbx"
+  },
+  "osthrust": {
+   "file": "packs/mixamo-motions/Thrust Slash.fbx"
+  },
+  "osadvance": {
+   "file": "packs/mixamo-motions/Slash Advance.fbx"
+  },
+  "oscombo": {
+   "file": "packs/mixamo-motions/One Hand Sword Combo.fbx"
+  },
+  "oscast": {
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield casting (2).fbx"
+  },
+  "axdraw": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/unarmed equip underarm.fbx"
+  },
+  "axsheath": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing disarm underarm.fbx"
+  },
+  "axidle": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing idle.fbx",
+   "loop": true
+  },
+  "axwalk": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing walk forward.fbx",
+   "loop": true
+  },
+  "axwalkback": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing walk back.fbx",
+   "loop": true
+  },
+  "axwalkleft": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing walk left.fbx",
+   "loop": true
+  },
+  "axwalkright": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing walk right.fbx",
+   "loop": true
+  },
+  "axrun": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing run forward.fbx",
+   "loop": true
+  },
+  "axrunback": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing run back.fbx",
+   "loop": true
+  },
+  "axjump": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing jump.fbx"
+  },
+  "axhorizontal": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack horizontal.fbx"
+  },
+  "axbackhand": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack backhand.fbx"
+  },
+  "axdownward": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack downward.fbx"
+  },
+  "axspinhigh": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack 360 high.fbx"
+  },
+  "axspinlow": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack 360 low.fbx"
+  },
+  "axcombo": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee combo attack ver. 2.fbx"
+  },
+  "axjumpattack": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee run jump attack.fbx"
+  },
+  "axkick": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack kick ver. 1.fbx"
+  },
+  "axbattlecry": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing taunt battlecry.fbx"
+  },
+  "axthump": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing taunt chest thump.fbx"
+  },
+  "axblock": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing block idle.fbx",
+   "loop": true
+  },
+  "axblocked": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing block react large.fbx"
+  },
+  "axhit": {
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing react large gut.fbx"
+  },
+  "axdeath": {
+   "file": "packs/mixamo-motions/Dying (7).fbx"
+  },
+  "rfidle": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/idle.fbx",
+   "loop": true
+  },
+  "rfsprint": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/sprint forward.fbx",
+   "loop": true
+  },
+  "rfjump": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/jump up.fbx"
+  },
+  "rffall": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/jump loop.fbx",
+   "loop": true
+  },
+  "rfland": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/jump down.fbx"
+  },
+  "rffire": {
+   "file": "packs/Basic Shooter Pack 30FPS/firing rifle.fbx"
+  },
+  "rfreload": {
+   "file": "packs/Basic Shooter Pack 30FPS/reloading.fbx"
+  },
+  "rfbutt": {
+   "file": "packs/mixamo-motions/Rifle Punch.fbx"
+  },
+  "rfstab": {
+   "file": "packs/mixamo-motions/Bayonet Stab.fbx"
+  },
+  "rfkick": {
+   "file": "packs/mixamo-motions/Rifle Turn And Kick.fbx"
+  },
+  "rfsignal": {
+   "file": "packs/mixamo-motions/Military Signaling.fbx"
+  },
+  "rfroll": {
+   "file": "packs/mixamo-motions/Dive Roll (2).fbx"
+  },
+  "rfdive": {
+   "file": "packs/mixamo-motions/Running Dive Roll.fbx"
+  },
+  "rfrollleft": {
+   "file": "packs/mixamo-motions/Roll Left (2).fbx"
+  },
+  "rfrollright": {
+   "mirror": "rfrollleft"
+  },
+  "rfhit": {
+   "file": "packs/mixamo-motions/Hit Reaction (3).fbx"
+  },
+  "rfdeath": {
+   "file": "packs/Rifle 8-Way Locomotion Pack 30FPS/death from the front.fbx"
+  },
+  "ptdraw": {
+   "file": "packs/mixamo-motions/Drawing Gun.fbx"
+  },
+  "ptholster": {
+   "file": "packs/mixamo-motions/Pistol To Idle.fbx"
+  },
+  "ptidle": {
+   "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol idle.fbx",
+   "loop": true
+  },
+  "ptwalk": {
+   "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol walk.fbx",
+   "loop": true
+  },
+  "ptwalkback": {
+   "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol walk backward.fbx",
+   "loop": true
+  },
+  "ptrun": {
+   "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol run.fbx",
+   "loop": true
+  },
+  "ptrunback": {
+   "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol run backward.fbx",
+   "loop": true
+  },
+  "ptstrafeleft": {
+   "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol strafe.fbx",
+   "loop": true
+  },
+  "ptstraferight": {
+   "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol strafe (2).fbx",
+   "loop": true
+  },
+  "ptjump": {
+   "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol jump.fbx"
+  },
+  "ptaim": {
+   "file": "packs/mixamo-motions/Pistol Idle (3).fbx",
+   "loop": true
+  },
+  "ptfire": {
+   "file": "packs/mixamo-motions/Shooting Gun.fbx"
+  },
+  "ptwhip": {
+   "file": "packs/mixamo-motions/Pistol Whip.fbx"
+  },
+  "ptkneel": {
+   "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol stand to kneel.fbx"
+  },
+  "ptkneeling": {
+   "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol kneeling idle.fbx",
+   "loop": true
+  },
+  "ptstand": {
+   "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol kneel to stand.fbx"
+  },
+  "ptfidget": {
+   "file": "packs/mixamo-motions/Pistol Idle (2).fbx"
+  },
+  "pthit": {
+   "file": "packs/mixamo-motions/Hit Reaction (2).fbx"
+  },
+  "bwdraw": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing equip bow.fbx"
+  },
+  "bwsheath": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing disarm bow.fbx"
+  },
+  "bwidle": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing idle 01.fbx",
+   "loop": true
+  },
+  "bwwalk": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing walk forward.fbx",
+   "loop": true
+  },
+  "bwwalkback": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing walk back.fbx",
+   "loop": true
+  },
+  "bwwalkleft": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing walk left.fbx",
+   "loop": true
+  },
+  "bwwalkright": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing walk right.fbx",
+   "loop": true
+  },
+  "bwrun": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing run forward.fbx",
+   "loop": true
+  },
+  "bwrunback": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing run back.fbx",
+   "loop": true
+  },
+  "bwrunleft": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing run left.fbx",
+   "loop": true
+  },
+  "bwrunright": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing run right.fbx",
+   "loop": true
+  },
+  "bwaim": {
+   "file": "packs/mixamo-motions/Standing Aim Idle 01.fbx",
+   "loop": true
+  },
+  "bwaimwalk": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing aim walk forward.fbx",
+   "loop": true
+  },
+  "bwaimwalkback": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing aim walk back.fbx",
+   "loop": true
+  },
+  "bwaimwalkleft": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing aim walk left.fbx",
+   "loop": true
+  },
+  "bwaimwalkright": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing aim walk right.fbx",
+   "loop": true
+  },
+  "bwrecoil": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing aim recoil.fbx"
+  },
+  "bwnock": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing draw arrow.fbx"
+  },
+  "bwoverdraw": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing aim overdraw.fbx"
+  },
+  "bwpunch": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing melee punch.fbx"
+  },
+  "bwkick": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing melee kick.fbx"
+  },
+  "bwblock": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing block.fbx"
+  },
+  "bwdodgeforward": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing dodge forward.fbx"
+  },
+  "bwdodgeback": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing dodge backward.fbx"
+  },
+  "bwdodgeleft": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing dodge left.fbx"
+  },
+  "bwdodgeright": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing dodge right.fbx"
+  },
+  "bwdive": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing dive forward.fbx"
+  },
+  "bwfall": {
+   "file": "packs/Pro Longbow Pack 30FPS/fall a loop.fbx",
+   "loop": true
+  },
+  "bwland": {
+   "file": "packs/Pro Longbow Pack 30FPS/fall a land to standing idle 01.fbx"
+  },
+  "bwexamine": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing idle 03 examine.fbx"
+  },
+  "bwhit": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing react small from front.fbx"
+  },
+  "bwdeath": {
+   "file": "packs/Pro Longbow Pack 30FPS/standing death backward 01.fbx"
+  },
+  "tcdraw": {
+   "file": "packs/mixamo-motions/Unarmed Equip Torch 01.fbx"
+  },
+  "proneidle": {
+   "file": "packs/mixamo-motions/Prone Idle.fbx",
+   "loop": true
+  },
+  "proneforward": {
+   "file": "packs/mixamo-motions/Prone Forward.fbx",
+   "loop": true
+  },
+  "tcidle": {
+   "file": "packs/mixamo-motions/Standing Torch Idle 01.fbx",
+   "loop": true
+  },
+  "tcwalk": {
+   "file": "packs/mixamo-motions/Standing Torch Walk Forward.fbx",
+   "loop": true
+  },
+  "tcwalkback": {
+   "file": "packs/mixamo-motions/Standing Torch Walk Back.fbx",
+   "loop": true
+  },
+  "tcwalkleft": {
+   "file": "packs/mixamo-motions/Standing Torch Walk Left.fbx",
+   "loop": true
+  },
+  "tcwalkright": {
+   "file": "packs/mixamo-motions/Standing Torch Walk Right.fbx",
+   "loop": true
+  },
+  "tcrun": {
+   "file": "packs/mixamo-motions/Standing Torch Run Forward.fbx",
+   "loop": true
+  },
+  "tcrunback": {
+   "file": "packs/mixamo-motions/Standing Torch Run Back.fbx",
+   "loop": true
+  },
+  "tcrunleft": {
+   "file": "packs/mixamo-motions/Standing Torch Run Left.fbx",
+   "loop": true
+  },
+  "tcrunright": {
+   "file": "packs/mixamo-motions/Standing Torch Run Right.fbx",
+   "loop": true
+  },
+  "tcjump": {
+   "file": "packs/mixamo-motions/Standing Torch Jump.fbx"
+  },
+  "tcswing1": {
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack 01.fbx"
+  },
+  "tcswing2": {
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack 02.fbx"
+  },
+  "tcstab": {
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack Stab.fbx"
+  },
+  "tccombo3": {
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack 03.fbx"
+  },
+  "tccombo4": {
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack 04.fbx"
+  },
+  "tccombo5": {
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack 05.fbx"
+  },
+  "tcwebs": {
+   "file": "packs/mixamo-motions/Standing Torch Burn Webs.fbx"
+  },
+  "tclight": {
+   "file": "packs/mixamo-motions/Standing Torch Light Torch.fbx"
+  },
+  "tcinspect": {
+   "file": "packs/mixamo-motions/Standing Torch Inspect Upward.fbx"
+  },
+  "mgdraw": {
+   "file": "packs/mixamo-motions/Standing 1H Cast Spell 01.fbx"
+  },
+  "mgidle": {
+   "file": "packs/Pro Magic Pack 30FPS/standing idle.fbx",
+   "loop": true
+  },
+  "mgwalk": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Walk Forward.fbx",
+   "loop": true
+  },
+  "mgwalkback": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Walk Back.fbx",
+   "loop": true
+  },
+  "mgwalkleft": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Walk Left.fbx",
+   "loop": true
+  },
+  "mgwalkright": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Walk Right.fbx",
+   "loop": true
+  },
+  "mgrun": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Run Forward.fbx",
+   "loop": true
+  },
+  "mgrunback": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Run Back.fbx",
+   "loop": true
+  },
+  "mgrunleft": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Run Left.fbx",
+   "loop": true
+  },
+  "mgrunright": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Run Right.fbx",
+   "loop": true
+  },
+  "mgjump": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Jump.fbx"
+  },
+  "mgland": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Land To Standing Idle.fbx"
+  },
+  "mgbolt1": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing 1H Magic Attack 01.fbx"
+  },
+  "mgbolt2": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing 1H Magic Attack 02.fbx"
+  },
+  "mgbolt3": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing 1H Magic Attack 03.fbx"
+  },
+  "mgblast": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Attack 01.fbx"
+  },
+  "mgfinisher": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Attack 05.fbx"
+  },
+  "mgarea": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Area Attack 01.fbx"
+  },
+  "mgnova": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Area Attack 02.fbx"
+  },
+  "mgcast": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Cast Spell 01.fbx"
+  },
+  "mgponder": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Idle 03.fbx"
+  },
+  "mgblockin": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Block Start.fbx"
+  },
+  "mgblock": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Block Idle.fbx",
+   "loop": true
+  },
+  "mgblockout": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Block End.fbx"
+  },
+  "mgblocked": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing Block React Large.fbx"
+  },
+  "mghit": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing React Large From Front.fbx"
+  },
+  "mgdeath": {
+   "file": "packs/Pro Magic Pack 30FPS/Standing React Death Backward.fbx"
+  }
+ },
+ "roles": {
+  "still": "idle",
+  "jump": "jump",
+  "leap": "jump",
+  "fall": "fall",
+  "land": "land"
+ },
+ "stances": {
+  "stand": {}
+ }
+}

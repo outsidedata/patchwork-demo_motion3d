@@ -1,0 +1,1422 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>demo_motion3d dev</title>
+    <style>
+      body { margin: 0; background: #0b0b0e; display: grid; place-items: center; height: 100vh; overflow: hidden }
+      canvas { grid-area: 1 / 1 }
+      #readout { position: fixed; left: 8px; bottom: 186px; color: #e8e8e8; font: 13px monospace; white-space: pre; background: #000a; padding: 6px 8px; pointer-events: none }
+      #caption { position: fixed; left: 50%; top: 8px; transform: translateX(-50%); max-width: 70vw; color: #fff; font: 600 18px sans-serif; white-space: pre-wrap; text-align: center; background: #000c; padding: 8px 14px; pointer-events: none }
+      #caption:empty { display: none }
+      #tag { position: fixed; transform: translate(-50%, -100%); color: #fff; font: 12px monospace; white-space: pre; background: #000b; padding: 3px 6px; pointer-events: none }
+      #tag:empty { display: none }
+      #caption:not(:empty) ~ #readout, body:has(#caption:not(:empty)) #readout { display: none }
+      #timeline { position: fixed; left: 0; right: 0; bottom: 0; width: 100vw; height: 178px; background: #111318; cursor: crosshair }
+      .lil-gui.root { max-height: calc(100vh - 178px); overflow-y: auto }
+    </style>
+  </head>
+  <body>
+    <div id="readout"></div>
+    <div id="caption"></div>
+    <div id="tag"></div>
+    <canvas id="timeline"></canvas>
+    <script type="module">
+      // The testbed: index.html's game, the manager truth and the scenes its row names all in this tab,
+      // one seat on them over a loopback, stepped on the page's clock; but the truth stands behind core's
+      // recorder (`addons/recorder`), which journals every press the seat sends and every edit the page
+      // makes, so any step of a run is gone back to by booting again and replaying up to it.
+      // `?scene=<scene>` enters that scene; `?station=<name>` runs that station as soon as the page is up.
+      // The truths are kept on `window.__scenes` (the recorder's, as they are now) and the page on
+      // `window.__page` for the profilers (benchmarking-a-game); `window.dev` holds the recorder, the run
+      // and the calls a driver uses (`run`, `runNow`, which runs a station to its end without waiting on
+      // the clock, `runAll`, `goTo`, `stepOn`, `focus`, `measure`, `worst`, `faults`, `pause`; `current` is
+      // the run).
+      //
+      // Stations. Each of the yard's demonstrations is a station: where the body is put down before it
+      // (the warp, written on its `player` row in the truth as recorder edits, after the body has stood
+      // on its start), and a script the playtester plays through the player plugin, a press at a time,
+      // as a person's keys would: walk up to it, press use, wait for each motion, push the stick, press
+      // again. Each stage of a script waits for something on the body's row; one that does not happen
+      // within its time stops the script and says which. The playtester plays only at the recording's
+      // newest step: going back and forward again replays what it pressed, and a key pressed on a step
+      // the recording has gone past takes over from it there (the recorder cuts the recording).
+      // `run every station` runs each in turn and lists how each went.
+      //
+      // The checks. Every step of a run is measured (`measure`) and held to `LIMITS`: the feet through the
+      // floor, the body handed back to walking in the air or dropped after, a fall that slows in the air, a
+      // jolt of the hips, a pinned hand or foot short of its point. `faults` is the run's, each with its
+      // time, and the readout shows them. `focus(seconds, part, expect)` holds the run at a moment, closes
+      // the camera in on the feet, hands, hips or head, and writes what is expected there and what was
+      // measured across the top, for a screenshot of just that (`motion3d confirmations and safety
+      // checks.md` is what each activity is checked for).
+      //
+      // The camera. `station`: an orbit about the station, placed where its demonstration can be seen
+      // whole; `body`: the same orbit about the body as drawn; `part`: the same about a part of the body;
+      // `seat`: the game's own chase camera. In the first three, a left drag on the game turns the orbit
+      // and the wheel brings it in and out.
+      //
+      // Time. Paused (` key), one step on (. key), one step back (, key: the recorder boots the game
+      // again and replays the run to the step before), the clock's speed, and back to the run's start.
+      // The timeline across the bottom is the run, step by step: the script's stage, the body's activity
+      // and motion, the clip it plays (striped while it crossfades from the one before), and the body's
+      // height (white) and its lowest foot over the ground under it (orange), the steps its root is
+      // eased shaded. A click on it, or a drag let go, goes to that step.
+      //
+      // The readout shows the keys; the frames drawn in the last second, the longest of them, the step
+      // and the scene; the station, where the run is and how its script is going; what motion3d has the
+      // seat's body doing, read off its `player` row in the scene's truth: the activity it is in, the
+      // motion it plays in it, the space and its place on the point it is held to, whether its root is
+      // being eased, the layer played over walking, and the activities the spaces it stands in offer; the
+      // clip and its playhead, the clip it fades from, its place, way, speed and lowest foot; each limb
+      // motion3d bends, how much of it is pinned and how far its last bend left its hand or foot from
+      // where it reaches; and the last five errors the page threw or wrote.
+      //
+      // The panel, motion3d's settings, laid into the truth's world and the page's as they change:
+      //   pin ease, s       `world.motion3d.ease`, how long a planted limb's pin eases in and out
+      //   crossfade, s      motion3d's `fade` of the X Bot, which the root is eased over between clips too
+      //   draw on the car   motion3d's `object` from yard on or off, the body drawn on the car as the
+      //                     page draws the car, or where its row stands (`world.motion3d.mods.object`)
+      //   priority          each space's priority (shapes3d's kind's `priority`, 1 where it gives none)
+      //   jump height, m    the X Bot's `world.kinematics3d.kinds.xbot.jump.jumpH`, how high a jump rises
+      // `copy motion3d JSON` copies the panel's numbers, and `reset to the file` puts the file's back.
+      //
+      // The rifle carry: the rifle's anchor in the X Bot's motion3d file (`at`, metres, and `turn`, degrees,
+      // in the anchor bone's frame), laid into the truth's and the page's copies as it changes. The
+      // readout says how far the spine turns to aim the rifle level ahead of the legs; `fit it to the
+      // clip's hands` sets the anchor so the rifle's grip is where the clip's own right hand is and its
+      // front grip toward its left, the rifle then pointing the way the clip holds it; `level it` turns the anchor by the spine's turn, so aiming
+      // straight ahead bends the spine none. `copy the anchor JSON` copies it
+      // for the file. `window.dev` has `rifle`, `setRifle`, `fit`, `level` and `spineTurn` for a driver.
+      import { imported } from '#engine/browser.ts'
+      import { manager, scenes, view } from '#addons/scenemanager/scenemanager.addon.ts'
+      import { recorder } from '#addons/recorder/recorder.addon.ts'
+      import { possessed } from '#addons/player/player.addon.ts'
+      import { reachesOf } from '#plugins/motion3d/motion3d.sim.ts'
+      import { clipOf, plantsOf, posed, rigOf } from '#plugins/motion3d/motion3d.play.ts'
+      import GUI from 'lil-gui'
+      import { ground } from '#plugins/terrain3d/terrain3d.kinematics3d.ts'
+      import { numbers } from '#plugins/kinematics3d/kinematics3d.sim.ts'
+      import { json } from '#plugins/loader/loader.sim.ts'
+      import { sim } from './demo_motion3d.sim.ts'
+      import file from './demo_motion3d.scene.json'
+
+      const clone = v => JSON.parse(JSON.stringify(v))
+      const wrap = a => a - 2 * Math.PI * Math.ceil((a - Math.PI) / (2 * Math.PI))
+      const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v))
+
+      // Every error the page throws or writes, the last five, shown under the readout.
+      const errors = []
+      const caught = e => {
+        errors.push(String(e?.message ?? e))
+        if (errors.length > 5) errors.shift()
+      }
+      addEventListener('error', e => caught(e.error ?? e.message))
+      addEventListener('unhandledrejection', e => caught(e.reason))
+      const written = console.error.bind(console)
+      console.error = (...a) => { caught(a.map(x => x?.message ?? x).join(' ')); written(...a) }
+
+      const query = new URLSearchParams(location.search)
+      file.prefabs.scenemanager.entry = query.get('scene') ?? file.prefabs.scenemanager.entry
+
+      // main as the scenemanager imports it, with the playtester put in beside the player before the boot.
+      const { scene: main } = await imported(new URL('./main.sim.ts', import.meta.url).href)
+      if (!main.plugins.includes('playtester')) main.plugins.splice(main.plugins.indexOf('player') + 1, 0, 'playtester')
+
+      const rec = await recorder(file, sim, import.meta.url)
+      const dt = rec.dt
+      const truths = () => scenes(manager(rec.truth))
+      Object.defineProperty(window, '__scenes', { get: truths })
+      const readoutEl = document.getElementById('readout')
+      let client
+      const page = view(rec.link, file, import.meta.url, (me, scene) => {
+        for (const c of document.querySelectorAll('canvas:not(#timeline)')) c.remove()
+        client = me
+        for (const surface of [me.plugins.render3d ?? me.plugins.render2d, me.plugins.ui]) {
+          if (!surface) continue
+          const canvas = document.createElement('canvas')
+          canvas.width = scene.prefabs.engine.width
+          canvas.height = scene.prefabs.engine.height
+          document.body.insertBefore(canvas, readoutEl)
+          surface.mount(canvas)
+        }
+        me.plugins.stats?.mount(document.body)
+      })
+      window.__page = page
+
+      // The panel: the scene, chosen from the manager's table, the page loaded again on it. A press on it
+      // stops at it, a release never does, and after a click the focus goes back to the page unless it
+      // went into a number to type or a list to pick from.
+      const gui = new GUI({ title: 'demo_motion3d dev' })
+      for (const type of ['keydown', 'keyup', 'click', 'mousedown', 'contextmenu', 'wheel'])
+        gui.domElement.addEventListener(type, e => e.stopPropagation())
+      gui.domElement.addEventListener('pointerup', () => requestAnimationFrame(() => {
+        const at = document.activeElement
+        if (gui.domElement.contains(at) && at.tagName !== 'SELECT' && !(at.tagName === 'INPUT' && (at.type === 'text' || at.type === 'number'))) at.blur()
+      }))
+      addEventListener('change', e => { if (gui.domElement.contains(e.target)) e.target.blur() })
+      const chosen = { scene: file.prefabs.scenemanager.entry }
+      const reload = (key, value) => { const url = new URL(location.href); url.searchParams.set(key, value); location.href = url.href }
+      gui.add(chosen, 'scene', Object.keys(file.prefabs.scenemanager.scenes)).onChange(s => reload('scene', s))
+      const room = () => truths().get(chosen.scene)
+      // The worlds every change is laid into: the scene's truth's and this page's.
+      const worlds = () => [room()?.world, client?.plugins.wire.scene.world].filter(Boolean)
+
+      // ---------- the body, read off the truth ----------
+
+      // The scene's rows as a rule's `w` reads them, one per truth, so what a plugin keeps per world is
+      // kept across reads.
+      const readers = new WeakMap()
+      const readerOf = t => {
+        let w = readers.get(t)
+        if (!w) {
+          w = {
+            world: t.world,
+            all: kind => t.rows.filter(r => r.kind === kind),
+            find: (kind, pred = () => true) => t.rows.find(r => r.kind === kind && pred(r)),
+            get: id => t.rows.find(r => r.id === id),
+          }
+          readers.set(t, w)
+        }
+        return w
+      }
+      const meIn = t => t?.rows.find(r => r.kind === 'player')
+      const rowOf = kind => room()?.rows.find(r => r.kind === kind)
+
+      // The body as its clips pose it this step: `foot`, the lowest of its toes (its feet where the rig has
+      // no toes) over the ground under the root, the ground a body of its kinematics3d numbers whose feet stand
+      // where the toes are stands on there; `hips`,
+      // its hips in the world; and `held`, whether the clip it plays (the one coming in, in a crossfade)
+      // has a hand or a foot planted on something now, by the bake's reading of what it touches.
+      let toes
+      function bodyOf(t, me) {
+        const w = readerOf(t)
+        const pose = posed(w, me)
+        if (!toes) {
+          const names = [...pose.keys()]
+          toes = names.filter(n => /Toe_End$/.test(n))
+          if (toes.length < 2) toes = names.filter(n => /ToeBase$/.test(n))
+          if (toes.length < 2) toes = names.filter(n => /^(LeftFoot|RightFoot)$/.test(n))
+          if (toes.length < 2) throw new Error(`the X Bot's pose has no toes or feet: ${names.join(', ')}`)
+        }
+        const d = me.data
+        // A bone drawn at [x, y, z] in the body's frame, in the world: turned by its yaw, then by the tilt
+        // motion3d leans it by, when it has one.
+        const inWorld = ([x, y, z]) => {
+          const v = [z * Math.sin(d.yaw) + x * Math.cos(d.yaw), y, z * Math.cos(d.yaw) - x * Math.sin(d.yaw)]
+          if (!d.tilt) return [d.pos[0] + v[0], d.pos[1] + v[1], d.pos[2] + v[2]]
+          const [qx, qy, qz, qw] = d.tilt
+          // v + 2w(q × v) + 2q × (q × v)
+          const c = [qy * v[2] - qz * v[1], qz * v[0] - qx * v[2], qx * v[1] - qy * v[0]]
+          const cc = [qy * c[2] - qz * c[1], qz * c[0] - qx * c[2], qx * c[1] - qy * c[0]]
+          return [0, 1, 2].map(i => d.pos[i] + v[i] + 2 * qw * c[i] + 2 * cc[i])
+        }
+        // The ground under the drawn toes, found at their height: a held clip can draw the body on the top
+        // of a wall while its root stands low by the wall.
+        const toe = Math.min(...toes.map(n => { const e = pose.get(n).elements; return inWorld([e[12], e[13], e[14]])[1] }))
+        const foot = toe - ground(w, toe, numbers(me, w).triangles).height(d.pos[0], d.pos[2])
+        const h = pose.get('Hips').elements
+        const hips = inWorld([h[12], h[13], h[14]])
+        const runs = Object.values(plantsOf(w, me, d.clip))
+        const held = runs.some(limb => limb.some(([a, b]) => d.clipT >= a && d.clipT <= b))
+        return { foot, hips, held }
+      }
+
+      // ---------- the run's steps, one sample each ----------
+
+      // What the body was doing at each step of the run, by step.
+      const samples = new Map()
+      function sample() {
+        const t = room(), me = meIn(t)
+        if (!me) return
+        const d = me.data
+        let body = { foot: null, hips: null, held: true }
+        try { body = bodyOf(t, me) } catch (e) { caught(e) }
+        samples.set(rec.n, {
+          activity: d.activity, motion: d.motion, clip: d.clip, clipT: d.clipT, state: d.state, from: d.from ?? null, blend: d.blend,
+          eased: d.eased ? (d.eased.to ? 'to' : 'from') : null, pos: [...d.pos], yaw: d.yaw, vel: [...d.vel], speed: d.speed, grounded: d.grounded,
+          // A step played again on the way back keeps the stage it was played at.
+          ...body, short: null, stage: samples.get(rec.n)?.stage ?? (run && run.stage < run.stages.length ? run.stages[run.stage].label : run?.result ?? null),
+        })
+      }
+      // How far motion3d's bend on the page left the furthest of the limbs pinned wholly to their points from
+      // them, the frame drawn at this step, kept on its sample: null with none pinned wholly.
+      function sampleReach() {
+        const s = samples.get(rec.n), t = room(), me = meIn(t)
+        if (!s || !me) return
+        let reach = []
+        try { reach = reachesOf(readerOf(t), me) } catch (e) { caught(e) }
+        const short = client?.plugins.motion3d?.short(me.id) ?? []
+        const whole = reach.map((r, i) => (r.weight >= 1 && short[i] !== undefined ? short[i] : null)).filter(v => v !== null)
+        s.short = whole.length ? Math.max(...whole) : null
+      }
+
+      // ---------- stations ----------
+
+      // Script stages. Each is handed the body's row data, its own counts and the rows this seat sees,
+      // once a step, and answers with a press to send, whether it is done, or why the script stops.
+      const send = (...press) => ({ label: press.join(' '), tick: () => ({ press, next: true }) })
+      // The seconds left of the clip the body plays, at its own rate: what a stage waiting for a one-shot to
+      // play out allows, and 3 s more.
+      const played = d => {
+        const c = clipOf(rigOf(readerOf(room()), 'xbot'), d.clip)
+        return Math.max(0, c.dur - (d.clipT ?? 0)) / (c.rate || 1) + 3
+      }
+      // Waits until `ok`, for `seconds`, or for as long as `seconds(d)` says when the stage begins.
+      const until = (label, ok, seconds = played) => ({
+        label,
+        tick: (d, s, rows) => {
+          s.limit ??= typeof seconds === 'function' ? seconds(d) : seconds
+          if (ok(d, rows)) return { next: true }
+          return s.steps * dt > s.limit ? { fail: `${label}: not within ${s.limit.toFixed(1)} s` } : {}
+        },
+      })
+      const wait = seconds => ({ label: `wait ${seconds} s`, tick: (d, s) => (s.steps * dt >= seconds ? { next: true } : {}) })
+      // Walks to (x, z) with the stick held forward, the view turned toward it every few steps as a player
+      // steers, and lets the stick go there; `on` keeps it held, for a place passed on the way.
+      const walk = (x, z, within, on = false) => ({
+        label: `walk to ${x.toFixed(2)}, ${z.toFixed(2)}`,
+        tick: (d, s) => {
+          if (Math.hypot(d.pos[0] - x, d.pos[2] - z) < within) return on ? { next: true } : { press: ['stick', 0, 0], next: true }
+          if (!s.going) { s.going = true; return { press: ['stick', 0, -1] } }
+          if (s.steps * dt > 30) return { fail: `walk to ${x.toFixed(2)}, ${z.toFixed(2)}: not there within 30 s` }
+          if (s.steps % 6 === 0) return { press: ['look', wrap(Math.atan2(x - d.pos[0], z - d.pos[2]) - d.look.yaw), 0] }
+          return {}
+        },
+      })
+      // Stood still: slower than the X Bot stands still at (kinematics3d's `move.still`), as its speed falls
+      // toward 0 and need never reach it.
+      const still = until('stood still', d => d.speed < room().world.kinematics3d.kinds.xbot.move.still, 3)
+      const walking = until('walking again', d => d.activity === 'walk')
+      const settled = until('root no longer eased', d => d.eased === null, 3)
+      const grounded = until('on the ground, not eased', d => d.grounded && d.eased === null, 4)
+      const motion = (m, seconds) => until(`in motion ${m}`, d => d.motion === m, seconds)
+      const activity = (a, seconds = 2) => until(`in activity ${a}`, d => d.activity === a, seconds)
+      const use = send('press', 'use')
+
+      // Hanging from a bar or a ceiling: up, along it to the right until its end, back to the left until
+      // its other end, and down.
+      const freehang = (word) => [
+        use, activity(word), motion('hang'), settled, wait(1),
+        send('stick', 1, 0), motion('move', 1), motion('hang', 12), wait(0.5),
+        send('stick', -1, 0), motion('move', 1), motion('hang', 20),
+        send('stick', 0, 0), use, motion('drop', 1), walking, grounded, wait(1),
+      ]
+
+      // Each station: the zone it stands before, where the body is put down, the stages, and the camera's
+      // orbit about the station: `look`, the place it looks at, from the zone; `yaw`, the way from it to
+      // the camera (yaw θ is (sin θ, cos θ) across the ground); `pitch` up; `dist` away.
+      const pos = kind => rowOf(kind).data.pos
+      const STATIONS = {
+        'walk, run, stand': () => ({
+          at: [0, 0, -8, 0],
+          stages: [
+            send('stick', 0, -1), motion('walk', 2), wait(1.5), send('fast', 1), motion('run', 2), wait(1.5),
+            send('fast', 0), motion('walk', 2), wait(1), send('stick', 0, 0), motion('stand', 2), wait(1),
+          ],
+          camera: { zone: 'partyzone', look: [4, 1, -6], yaw: Math.PI / 2, pitch: 0.2, dist: 9 },
+        }),
+        'jump and land': () => ({
+          at: [0, 0, -8, 0],
+          stages: [
+            send('press', 'jump'), motion('jump', 1), until('in the air', d => !d.grounded, 1), until('rising', d => d.vel[1] > 0, 1),
+            until('falling', d => d.vel[1] < 0 && !d.grounded, 2), until('landed', d => d.grounded, 3), motion('stand', 3), wait(1),
+            send('stick', 0, -1), send('fast', 1), motion('run', 2), wait(0.5), send('press', 'jump'), motion('jump', 1),
+            until('landed', d => d.grounded, 4), send('stick', 0, 0), send('fast', 0), motion('stand', 3), wait(1),
+          ],
+          camera: { zone: 'partyzone', look: [4, 1.5, -4], yaw: Math.PI / 2, pitch: 0.15, dist: 10 },
+        }),
+        'walk off the edge and fall': () => {
+          // Off the block of the edge station, 0.611 m high: more than a step, so a fall.
+          const [x, , z] = pos('edge')
+          return {
+            at: [x, room().world.shapes3d.kinds.edge.shape.box.size[1], z, Math.PI / 2],
+            stages: [
+              until('on the block', d => d.grounded && d.motion === 'stand', 2), wait(0.5),
+              send('stick', 0, -1), motion('walk', 1), motion('fall', 3), until('landed', d => d.grounded && d.pos[1] < 0.01, 3),
+              send('stick', 0, 0), motion('stand', 3), wait(1),
+            ],
+            camera: { zone: 'edgezone', look: [2, 0.6, 0.6], yaw: Math.PI, pitch: 0.15, dist: 6 },
+          }
+        },
+        'crawl cube: walk in, crawl, lie still, walk out': () => {
+          const [x, , z] = pos('crawlcube')
+          return {
+            at: [x, 0, z - 6, 0],
+            stages: [
+              walk(x, z - 1, 0.4, true), until('crawling', d => d.activity === 'crawl' && d.motion === 'crawl', 3), wait(1),
+              send('stick', 0, 0), until('lying still', d => d.activity === 'crawl' && d.motion === 'still', 2), wait(1.5),
+              walk(x, z + 4, 0.4), until('walking out', d => d.activity === 'walk', 15), wait(1),
+            ],
+            camera: { zone: 'crawlcube', look: [0, 0.6, 0], yaw: Math.PI / 2, pitch: 0.25, dist: 8 },
+          }
+        },
+        'crawl cube: jump in and land crawling': () => {
+          const [x, , z] = pos('crawlcube')
+          return {
+            at: [x, 0, z - 7, 0],
+            stages: [
+              send('fast', 1), send('stick', 0, -1), motion('run', 2), until('at its edge', d => d.pos[2] > z - 4, 3), send('press', 'jump'), motion('jump', 1),
+              until('in the air', d => !d.grounded, 1), until('landed crawling', d => d.grounded && d.activity === 'crawl', 5), wait(1),
+              send('stick', 0, 0), send('fast', 0), until('lying still', d => d.motion === 'still', 2), wait(1),
+            ],
+            camera: { zone: 'crawlcube', look: [0, 0.8, -1.5], yaw: Math.PI / 2, pitch: 0.2, dist: 9 },
+          }
+        },
+        'cave: draw, hold, put away': () => {
+          const [x, , z] = pos('cave')
+          return {
+            at: [x, 0, z - 6, 0],
+            stages: [
+              walk(x, z, 0.5), until('drawing the torch', d => d.upperMotion === 'draw', 2), until('holding the torch', d => d.upperMotion === 'hold', 4), wait(1),
+              walk(x, z - 3.6, 0.3, true), until('putting it away', d => d.upperMotion === 'putaway', 4), send('stick', 0, 0),
+              until('arms let go', d => d.upperMotion === null, 4), wait(1),
+            ],
+            camera: { zone: 'cave', look: [0, 1.2, -1.5], yaw: Math.PI / 2, pitch: 0.2, dist: 9 },
+          }
+        },
+        'cave: jump in, draw while falling': () => {
+          const [x, , z] = pos('cave')
+          return {
+            at: [x, 0, z - 7, 0],
+            stages: [
+              send('fast', 1), send('stick', 0, -1), motion('run', 2), until('at its edge', d => d.pos[2] > z - 4.2, 3), send('press', 'jump'), motion('jump', 1),
+              until('drawing in the air', d => d.upperMotion === 'draw' && !d.grounded, 2), until('landed', d => d.grounded, 3),
+              send('stick', 0, 0), send('fast', 0), until('holding the torch', d => d.upperMotion === 'hold', 4), wait(1),
+            ],
+            camera: { zone: 'cave', look: [0, 1.2, -2], yaw: Math.PI / 2, pitch: 0.2, dist: 10 },
+          }
+        },
+        'backflip (pink zone)': () => {
+          const [x, , z] = pos('partyzone')
+          return { at: [x, 0, z - 3, 0], stages: [walk(x, z, 1), still, use, activity('party'), walking, grounded, wait(1)], camera: { zone: 'partyzone', look: [0, 1, 0], yaw: Math.PI / 2, pitch: 0.2, dist: 6 } }
+        },
+        'pick up (blue zone)': () => {
+          const [x, , z] = pos('sadzone')
+          return { at: [x, 0, z - 3, 0], stages: [walk(x, z, 1), still, use, activity('sad'), walking, grounded, wait(1)], camera: { zone: 'sadzone', look: [0, 1, 0], yaw: Math.PI / 2, pitch: 0.2, dist: 6 } }
+        },
+        'wall: hang, shimmy, climb up': () => {
+          const [x, , z] = pos('ledgezone')
+          return {
+            at: [x, 0, z - 3, 0],
+            stages: [
+              walk(x, z, 0.3), still, use, activity('ledge'), motion('hang'), settled, wait(1),
+              send('stick', 1, 0), motion('move', 1), motion('hang', 12), wait(0.5),
+              send('stick', 0, -1), use, motion('climb', 1), send('stick', 0, 0), walking, grounded, wait(1.5),
+            ],
+            camera: { zone: 'ledgezone', look: [-1, 1.8, 0.6], yaw: 2.3, pitch: 0.2, dist: 7.5 },
+          }
+        },
+        'wall: hang and drop': () => {
+          const [x, , z] = pos('ledgezone')
+          return {
+            at: [x, 0, z - 3, 0],
+            stages: [walk(x, z, 0.3), still, use, activity('ledge'), motion('hang'), settled, wait(1), send('stick', 0, 1), use, motion('drop', 1), send('stick', 0, 0), walking, grounded, wait(1.5)],
+            camera: { zone: 'ledgezone', look: [0, 1.5, 0.6], yaw: Math.PI / 2, pitch: 0.15, dist: 6 },
+          }
+        },
+        'chair: sit and stand': () => {
+          const [x, , z] = pos('chairzone')
+          return {
+            at: [x, 0, z - 3, 0],
+            stages: [walk(x, z - 0.3, 0.3), still, use, activity('chair'), motion('seated', 5), settled, wait(1.5), use, motion('stand', 1), walking, settled, send('stick', 0, -1), wait(0.5), send('stick', 0, 0), wait(1)],
+            camera: { zone: 'chairzone', look: [0, 0.8, 0.6], yaw: Math.PI / 2, pitch: 0.15, dist: 5 },
+          }
+        },
+        'cold room: shiver': () => {
+          const [x, , z] = pos('coldroom')
+          return {
+            at: [x, 0, z - 3, 0],
+            stages: [walk(x, z, 0.4), still, until('shivering', d => d.activity === 'cold', 4), wait(4), walk(x, z - 3, 0.4), still, wait(1)],
+            camera: { zone: 'coldroom', look: [0, 1, -1], yaw: Math.PI / 2, pitch: 0.2, dist: 7 },
+          }
+        },
+        'bar: hang, along, drop': () => {
+          const [x, , z] = pos('barzone')
+          return { at: [x, 0, z - 2.7, 0], stages: [walk(x, z, 0.3), still, ...freehang('bar')], camera: { zone: 'barzone', look: [0, 1.6, 0.3], yaw: Math.PI * 0.85, pitch: 0.15, dist: 7.5 } }
+        },
+        'ceiling: hang, across, drop': () => {
+          const [x, , z] = pos('hallzone')
+          return { at: [x, 0, z - 3, 0], stages: [walk(x, z, 0.3), still, ...freehang('ceiling')], camera: { zone: 'hallzone', look: [0, 1.4, 0], yaw: Math.PI * 0.85, pitch: 0.15, dist: 8 } }
+        },
+        'ceiling: turn under it': () => {
+          const [x, , z] = pos('hallzone')
+          return {
+            at: [x, 0, z - 3, 0],
+            stages: [
+              walk(x, z, 0.3), still, use, activity('ceiling'), motion('hang'), settled, wait(0.5),
+              send('stick', 0, -1), motion('move', 1), wait(1), send('stick', 1, 0), until('turned right', d => d.yaw < -1, 3), wait(0.5),
+              send('stick', 0, 1), until('turned round', d => Math.abs(d.yaw) > 2.5, 3), wait(0.5),
+              send('stick', 0, 0), motion('hang', 2), use, motion('drop', 1), walking, grounded, wait(1),
+            ],
+            camera: { zone: 'hallzone', look: [0, 1.4, 0], yaw: Math.PI * 0.85, pitch: 0.35, dist: 8 },
+          }
+        },
+        'rope: climb and let go': () => {
+          const [x, , z] = pos('ropezone')
+          return {
+            at: [x, 0, z - 2.8, 0],
+            stages: [walk(x, z, 0.3), still, use, activity('rope'), wait(0.7), send('stick', 0, -1), wait(1), until('at the top', d => d.rate === 0, 20), wait(0.5), send('stick', 0, 0), use, walking, grounded, wait(1.5)],
+            camera: { zone: 'ropezone', look: [0, 2.8, 0.3], yaw: Math.PI / 2, pitch: 0.1, dist: 10 },
+          }
+        },
+        'rope swing': () => {
+          const [x, , z] = pos('swingzone')
+          return { at: [x, 0, z - 3, 0], stages: [walk(x, z, 0.3), still, use, activity('swing'), walking, grounded, wait(1.5)], camera: { zone: 'swingzone', look: [0, 2.5, 2.8], yaw: Math.PI / 2, pitch: 0.1, dist: 11 } }
+        },
+        'climbing wall': () => {
+          const [x, , z] = pos('climbzone')
+          return {
+            at: [x, 0, z - 3, 0],
+            stages: [
+              walk(x, z, 0.3), still, use, activity('climb'), send('stick', 0, -1), wait(1), until('at the top', d => d.rate === 0, 12), wait(0.5),
+              send('stick', 0, 1), motion('down', 1), wait(1.5), send('stick', 0, 0), wait(0.5), use, walking, grounded, wait(1.5),
+            ],
+            camera: { zone: 'climbzone', look: [0, 2.2, 0.3], yaw: Math.PI * 0.7, pitch: 0.1, dist: 9 },
+          }
+        },
+        'tilted climbing wall': () => {
+          const [x, , z] = pos('tiltzone')
+          return {
+            at: [x, 0, z - 3, 0],
+            stages: [
+              walk(x, z, 0.3), still, use, activity('climb'), send('stick', 0, -1), wait(1), until('at the top', d => d.rate === 0, 12), wait(0.5),
+              send('stick', 0, 1), motion('down', 1), wait(1.5), send('stick', 0, 0), wait(0.5), use, walking, grounded, wait(1.5),
+            ],
+            camera: { zone: 'tiltzone', look: [0, 2.2, 0.8], yaw: Math.PI * 0.6, pitch: 0.1, dist: 9 },
+          }
+        },
+        'run wall': () => {
+          const [x, , z] = pos('runzone')
+          return { at: [x, 0, z - 3, 0], stages: [walk(x, z, 0.3), still, use, activity('wallrun'), walking, grounded, wait(2)], camera: { zone: 'runzone', look: [-2, 1.2, 0.5], yaw: Math.PI, pitch: 0.12, dist: 8 } }
+        },
+        'vault': () => {
+          const [x, , z] = pos('vaultzone')
+          return { at: [x, 0, z - 3, 0], stages: [walk(x, z, 0.3), still, use, activity('vault'), walking, grounded, wait(2)], camera: { zone: 'vaultzone', look: [0, 0.8, 1.5], yaw: -Math.PI / 2, pitch: 0.12, dist: 6.5 } }
+        },
+        'edge: teeter and step down': () => {
+          const [x, , z] = pos('edgezone'), step = pos('edgestep')
+          return {
+            at: [x, 0, step[2] + 2, Math.PI],
+            stages: [
+              walk(x, step[2] - 0.5, 0.4, true), walk(x, z, 0.3), still, until('offered the edge', d => d.offered.includes('edge'), 1),
+              use, activity('edge'), settled, wait(2), use, motion('down', 1), walking, grounded, wait(1.5),
+            ],
+            camera: { zone: 'edgezone', look: [0, 0.6, 0.2], yaw: Math.PI / 2, pitch: 0.12, dist: 6 },
+          }
+        },
+        'stairs': () => {
+          // Put down as near the stairs' foot as the game's test walks up to it from, since a body walking
+          // in from further carries on up the first steps as it slows.
+          const [x, , z] = pos('stairzone')
+          return {
+            at: [x, 0, z - 1.2, 0],
+            stages: [walk(x, z, 0.3), still, use, activity('stairs'), send('stick', 0, -1), until('walking at the top', d => d.activity === 'walk', 15), send('stick', 0, 0), settled, wait(1.5)],
+            camera: { zone: 'stairzone', look: [0, 1.6, 1.8], yaw: -Math.PI / 2, pitch: 0.15, dist: 8.5 },
+          }
+        },
+        'pool: fall in, swim, climb out': () => {
+          const [x, y, z] = pos('pool'), landing = pos('stairlanding')
+          return {
+            at: [x, y, landing[2] - 0.3, 0],
+            stages: [
+              walk(x, z, 0.3), still, until('offered the pool', d => d.offered.includes('pool'), 1), use, activity('pool'), motion('float'), settled, wait(1),
+              send('stick', 0, -1), motion('swim', 1), motion('float', 12), send('stick', 0, 0), use, motion('out', 1), walking, grounded, wait(1.5),
+            ],
+            camera: { zone: 'pool', look: [0, -1, 2.8], yaw: -Math.PI / 2, pitch: 0.25, dist: 9 },
+          }
+        },
+        'desk: sit, type, stand': () => {
+          const [x, , z] = pos('deskzone')
+          return {
+            at: [x, 0, z - 3, 0],
+            stages: [walk(x, z, 0.3), still, use, activity('desk'), settled, wait(2), use, walking, settled, wait(1.5)],
+            camera: { zone: 'deskzone', look: [-0.5, 0.8, 0.3], yaw: Math.PI * 0.75, pitch: 0.2, dist: 5 },
+          }
+        },
+        'bed: lie down and get up': () => {
+          const [x, , z] = pos('bedzone')
+          return {
+            at: [x, 0, z + 3, Math.PI],
+            stages: [walk(x, z, 0.3), still, use, activity('bed'), motion('lie', 7), settled, wait(2), use, walking, settled, wait(1.5)],
+            camera: { zone: 'bedzone', look: [0, 0.7, -0.8], yaw: Math.PI / 2, pitch: 0.2, dist: 5.5 },
+          }
+        },
+        'beam: sneak along it': () => {
+          const [x, , z] = pos('beamzone')
+          return {
+            at: [x, 0, z - 3, 0],
+            stages: [
+              walk(x, z, 0.3), still, use, activity('beam'), settled, wait(0.5),
+              send('stick', 0, -1), until('at the far end', d => d.stopped !== false, 15), send('stick', 0, 0), wait(0.5),
+              send('stick', 0, 1), motion('back', 1), until('back at the near end', d => d.stopped !== false, 15), send('stick', 0, 0), wait(0.5),
+              use, walking, grounded, wait(1.5),
+            ],
+            camera: { zone: 'beamzone', look: [0, 0.8, 3], yaw: Math.PI / 2, pitch: 0.2, dist: 8 },
+          }
+        },
+        'car: get in, drive, honk, get out': () => {
+          const [x, , z] = pos('carzone')
+          const car = rows => rows.find(r => r.kind === 'car')
+          return {
+            at: [x, 0, z - 3.5, 0],
+            stages: [
+              walk(x, z, 0.3), still, use, activity('car'), motion('pilot', 7), settled, wait(1),
+              send('stick', 0.5, -1), wait(1.5), send('stick', 0, 0), until('the car stopped', (d, rows) => car(rows)?.data.speed === 0, 3),
+              send('press', 'jump'), until('honking over the wheel', d => d.upperMotion === 'honk' && d.motion === 'pilot', 1),
+              until('honked', d => d.upperMotion === null, 4), use, motion('out', 1), walking, grounded, wait(1.5),
+            ],
+            camera: { zone: 'carzone', look: [-1.5, 1, 0.5], yaw: Math.PI * 0.6, pitch: 0.2, dist: 9 },
+          }
+        },
+      }
+      const NAMES = Object.keys(STATIONS)
+
+      // The run: the station, its stages, the stage it is on and its counts, the step it began at, the
+      // step the playtester last answered, and how it ended.
+      let run
+      // Every station's run when they are run in turn, and whether they are being run now.
+      let all
+      let inTurn = false
+      let busy
+      // The recording's end as the loop last saw it: an end come back below it is a cut.
+      let lastEnd = rec.end
+      const wanted = { station: NAMES.includes(query.get('station')) ? query.get('station') : NAMES[0] }
+      const clock = { paused: false, speed: 1 }
+
+      // Something done with the clock held, one after another: a restart, a seek.
+      function hold(f) {
+        const going = (busy ?? Promise.resolve()).then(f).catch(caught).finally(() => { if (busy === going) busy = undefined })
+        busy = going
+        return going
+      }
+      // One step of the recorder, and its sample; a step that throws pauses the clock and says so.
+      async function stepOnce() {
+        const stopped = rec.step()
+        if (stopped) {
+          clock.paused = true
+          await stopped
+          caught(`step ${rec.failure?.at}: ${rec.failure?.message}`)
+          return false
+        }
+        sample()
+        return true
+      }
+
+      // The station run afresh: the recording started over from step 0, the steps taken until the body
+      // stands on its start, the body put down before the station, and two steps more, so the page's first
+      // frame of the run draws the body there and nothing between there and the start.
+      function begin(name) {
+        return hold(async () => {
+          const plan = STATIONS[name]
+          if (!plan) throw new Error(`no station ${name}: ${NAMES.join(', ')}`)
+          await rec.restart()
+          samples.clear()
+          run = undefined
+          captionEl.textContent = ''
+          const stepped = async () => {
+            const stopped = rec.step()
+            if (stopped) {
+              await stopped
+              throw new Error(`step ${rec.failure?.at}: ${rec.failure?.message}`)
+            }
+          }
+          for (let i = 0; i < 600 && !meIn(room())?.data.stood; i++) await stepped()
+          const me = meIn(room())
+          if (!me?.data.stood) throw new Error('the seat\'s body never stood on its start')
+          const { at, stages, camera } = plan()
+          const [x, y, z, yaw] = at
+          // The body stands on the triangles: its place there (`along`) is where it is put, facing `yaw`
+          // (motion3d places it from its place; kinematics3d says whether the ground holds it).
+          const fields = { pos: [x, y, z], along: [x, y, z], yaw, facing: yaw, look: { ...me.data.look, yaw }, vel: [0, 0, 0], speed: 0 }
+          for (const [path, value] of Object.entries(fields)) rec.edit({ set: { scene: chosen.scene, id: me.id, path: [path], value } })
+          await stepped()
+          await stepped()
+          run = { name, stages, stage: 0, counts: { steps: 0 }, from: rec.n, acted: -1, result: null, held: false, camera }
+          lastEnd = rec.end
+          orbit.at = { ...camera }
+          sample()
+          clock.paused = false
+          wanted.station = name
+        })
+      }
+
+      // The playtester's think: once a step, at the recording's newest step, the stage it is on handed the
+      // body's row; a stage that is done hands on to the next in the same step, and the first press any
+      // of them names is sent.
+      function think(rows) {
+        if (!run || run.result || (busy && !driving)) return undefined
+        if (rec.n !== rec.end || rec.n === run.acted) return undefined
+        const me = possessed(rows)
+        if (!me) return undefined
+        run.acted = rec.n
+        while (run.stage < run.stages.length) {
+          const s = run.counts
+          const got = run.stages[run.stage].tick(me.data, s, rows)
+          s.steps++
+          if (got.fail) {
+            run.result = `stopped: ${got.fail}`
+            return undefined
+          }
+          if (got.next) {
+            run.stage++
+            run.counts = { steps: 0 }
+          }
+          if (got.press) return got.press
+          if (!got.next) return undefined
+        }
+        run.result = 'done'
+        return undefined
+      }
+
+      // The session put at step k of the run: back by booting again and replaying, forward by stepping, no
+      // further than the recording goes.
+      function goTo(k) {
+        return hold(async () => {
+          const target = clamp(Math.round(k), run?.from ?? 0, rec.end)
+          clock.paused = true
+          if (target < rec.n) await rec.seek(target)
+          while (rec.n < target) if (!(await stepOnce())) break
+        })
+      }
+      const stepOn = () => hold(async () => { clock.paused = true; await stepOnce() })
+
+      // ---------- the checks ----------
+
+      // What a run is held to. Each check measures every step of the run; a step past its limit is a
+      // fault, and steps in a row past it are one fault, named by its worst step.
+      //   under   m: the lowest toe under the ground. Walking's own stride dips it 1.6 cm under.
+      //   over    m: the lowest toe over the ground on the step the body is handed back to walking. Standing
+      //           still stands it 3.3 cm over.
+      //   off     s: off the ground after the body is handed back to walking.
+      //   air     m: the lowest toe over the ground for the body to be in the air, with no hand or foot
+      //           its clip plants on anything.
+      //   slowed  m/s: how much a fall in the air slowed, within `window` s: nothing in the air slows a fall.
+      //   jolt    m/s: how much the drawn hips' speed changed in one step.
+      //   short   m: how far motion3d left a hand or a foot pinned wholly to its point from it.
+      const LIMITS = { under: 0.05, over: 0.05, off: 0.1, air: 0.05, slowed: 1, window: 0.2, jolt: 1, short: 0.02 }
+
+      // Each step of the run's measures: `under`, `jolt`, `slowed`, `short`, each as the limits name them,
+      // and the hand-backs to walking, each with the activity left, the lowest toe then and the seconds off
+      // the ground after.
+      function measure() {
+        if (!run) return null
+        const steps = []
+        const handed = []
+        const fall = n => {
+          const s = samples.get(n), was = samples.get(n - 1)
+          return s?.hips && was?.hips ? (was.hips[1] - s.hips[1]) / dt : null
+        }
+        const aloft = n => { const s = samples.get(n); return s && !s.held && s.foot != null && s.foot > LIMITS.air }
+        for (let n = run.from; n <= rec.end; n++) {
+          const s = samples.get(n), was = samples.get(n - 1), before = samples.get(n - 2)
+          if (!s) continue
+          let jolt = null
+          if (s.hips && was?.hips && before?.hips) {
+            const v = s.hips.map((x, i) => (x - was.hips[i]) / dt), u = was.hips.map((x, i) => (x - before.hips[i]) / dt)
+            jolt = Math.hypot(v[0] - u[0], v[1] - u[1], v[2] - u[2])
+          }
+          let slowed = null
+          if (aloft(n) && fall(n) !== null) {
+            for (let k = 1; k * dt <= LIMITS.window && aloft(n - k) && fall(n - k) !== null; k++) slowed = Math.max(slowed ?? 0, fall(n - k) - fall(n))
+          }
+          steps.push({ n, under: s.foot == null ? null : -s.foot, jolt, slowed, short: s.short })
+          if (was && s.activity === 'walk' && was.activity !== 'walk') {
+            let off = 0
+            for (let k = n; k <= rec.end && samples.get(k) && !samples.get(k).grounded; k++) off++
+            handed.push({ n, from: `${was.activity}.${was.motion}`, foot: s.foot, off: off * dt })
+          }
+        }
+        return { steps, handed }
+      }
+
+      // The worst of each measure over the run, and its step.
+      function worst(m = measure()) {
+        const out = {}
+        for (const key of ['under', 'jolt', 'slowed', 'short']) {
+          for (const s of m.steps) if (s[key] != null && (out[key] === undefined || s[key] > out[key].v)) out[key] = { v: s[key], n: s.n }
+        }
+        return out
+      }
+
+      // The run's faults: `{ check, n, to, v, text }`, `n` the worst step, `to` the last of its stretch.
+      const at = n => `${((n - run.from) * dt).toFixed(2)} s`
+      const cm = v => `${(v * 100).toFixed(1)} cm`
+      const SAYS = {
+        under: (v, s) => `the feet ${cm(v)} under the floor, ${s.activity}.${s.motion} ${s.clip}`,
+        jolt: (v, s) => `the hips jolt ${v.toFixed(2)} m/s in one step, ${s.activity}.${s.motion} ${s.clip}`,
+        slowed: (v, s) => `a fall in the air slows by ${v.toFixed(2)} m/s, ${s.activity}.${s.motion} ${s.clip}`,
+        short: (v, s) => `a pinned hand or foot ${cm(v)} short of its point, ${s.activity}.${s.motion} ${s.clip}`,
+      }
+      function faults(m = measure()) {
+        if (!m) return []
+        const out = []
+        for (const key of Object.keys(SAYS)) {
+          let open
+          for (const s of m.steps) {
+            const past = s[key] != null && s[key] > LIMITS[key]
+            if (past && open && s.n === open.to + 1) {
+              open.to = s.n
+              if (s[key] > open.v) Object.assign(open, { n: s.n, v: s[key] })
+            } else if (past) out.push((open = { check: key, n: s.n, to: s.n, v: s[key] }))
+            else open = undefined
+          }
+        }
+        for (const h of m.handed) {
+          if (h.foot != null && h.foot > LIMITS.over) out.push({ check: 'over', n: h.n, to: h.n, v: h.foot, text: `handed back to walking from ${h.from} with the feet ${cm(h.foot)} over the ground` })
+          if (h.off > LIMITS.off) out.push({ check: 'off', n: h.n, to: h.n, v: h.off, text: `off the ground ${h.off.toFixed(2)} s after ${h.from} handed it back to walking` })
+        }
+        for (const f of out) f.text ??= `${SAYS[f.check](f.v, samples.get(f.n))} (to ${at(f.to)})`
+        return out.sort((a, b) => a.n - b.n).map(f => ({ ...f, text: `${at(f.n)}: ${f.text}` }))
+      }
+      const verdict = () => {
+        const f = faults()
+        return f.length ? f.map(x => x.text).join('; ') : 'no faults'
+      }
+
+      // A station run to its end and a second on without the page's clock, as fast as the page steps and
+      // draws: a step, then a frame drawn, in which the playtester answers that step, so it presses as it
+      // does played. For a driver, and a page behind other windows, which is handed few frames.
+      let driving = false
+      // A turn of the page's event loop, which a page behind other windows is not slowed in, as it is in
+      // its timers.
+      const breathe = () => new Promise(done => { const c = new MessageChannel(); c.port1.onmessage = () => done(); c.port2.postMessage(0) })
+      async function runNow(name) {
+        await begin(name)
+        clock.paused = true
+        await hold(async () => {
+          driving = true
+          try {
+            let over
+            for (let i = 0; i < 120 / dt; i++) {
+              if (!(await stepOnce())) break
+              handBot()
+              placeCamera()
+              placeBounds()
+              await page.frame()
+              sampleReach()
+              if (i % 30 === 0) await breathe()
+              if (run.result) over ??= rec.n
+              if (over !== undefined && rec.n - over >= Math.round(1 / dt)) break
+            }
+          } finally {
+            driving = false
+          }
+        })
+        if (run.result) run.held = true
+        const m = measure()
+        return { result: run.result, faults: faults(m).map(f => f.text), worst: worst(m), handed: m.handed }
+      }
+
+      // Every station in turn, each run to its end, and how each went.
+      async function runAll(names = NAMES) {
+        all = []
+        inTurn = true
+        try {
+          for (const name of names) {
+            await begin(name)
+            await new Promise(done => {
+              const check = () => (run?.result ? done() : setTimeout(check, 100))
+              check()
+            })
+            all.push({ name, result: run.result, seconds: ((rec.n - run.from) * dt).toFixed(1), faults: verdict() })
+          }
+        } finally {
+          inTurn = false
+        }
+        return all
+      }
+
+      // ---------- the camera ----------
+
+      // The orbit: about the station's place, or about the body as drawn.
+      const OWNER = 'demo_motion3d dev'
+      const orbit = { mode: 'station', at: null, part: 'feet', dragging: false }
+      const zoneAt = c => {
+        const z = room()?.rows.find(r => r.kind === c.zone)
+        return z ? z.data.pos.map((v, i) => v + c.look[i]) : null
+      }
+      // The body's place as the page draws it: between the last two steps' samples by the step's share.
+      const bodyAt = between => {
+        const now = samples.get(rec.n), was = samples.get(rec.n - 1) ?? now
+        if (!now) return null
+        const t = between ?? 1
+        return now.pos.map((v, i) => was.pos[i] + (v - was.pos[i]) * t + (i === 1 ? 1 : 0))
+      }
+      // The parts of the body the camera can close in on, by the bones whose middle it looks at.
+      const PARTS = { feet: () => toes, hands: () => ['LeftHand', 'RightHand'], hips: () => ['Hips'], head: () => ['Head'] }
+      // The middle of a part of the body as its clips pose it at the step the run is on, in the world.
+      function partAt(part) {
+        const t = room(), me = meIn(t)
+        if (!me || !PARTS[part]) return null
+        const pose = posed(readerOf(t), me)
+        const d = me.data
+        const names = PARTS[part]() ?? []
+        const at = names.map(n => {
+          const e = pose.get(n)?.elements
+          if (!e) throw new Error(`the X Bot's pose has no ${n}`)
+          return [d.pos[0] + e[14] * Math.sin(d.yaw) + e[12] * Math.cos(d.yaw), d.pos[1] + e[13], d.pos[2] + e[14] * Math.cos(d.yaw) - e[12] * Math.sin(d.yaw)]
+        })
+        return at.length ? [0, 1, 2].map(i => at.reduce((s, p) => s + p[i], 0) / at.length) : null
+      }
+      // Over the seat's body as drawn: the clip its top half plays and the one its body plays, each with
+      // how far through it is, off the page's row.
+      const tagEl = document.getElementById('tag')
+      function placeTag() {
+        const plugins = page.client?.plugins
+        const me = plugins && possessed(plugins.wire.rows)
+        const root = me && plugins.motion3d?.model(me.id)
+        const r3 = plugins?.render3d
+        if (!me || !root || !r3?.camera) { tagEl.textContent = ''; return }
+        const d = me.data
+        const rig = rigOf(plugins.wire, me.data.as ?? me.kind)
+        const through = (clip, t) => `${clip}  ${t.toFixed(2)} / ${clipOf(rig, clip).dur.toFixed(2)} s  ${Math.round((100 * t) / clipOf(rig, clip).dur)}%`
+        tagEl.textContent = [
+          `top     ${d.upper != null ? through(d.upper, d.upperT) : d.upperMotion ? `${d.upperMotion} (no clip)` : '-'}`,
+          `bottom  ${d.clip != null ? through(d.clip, d.clipT) : '-'}`,
+        ].join('\n')
+        const at = root.getWorldPosition(new r3.THREE.Vector3()).add(new r3.THREE.Vector3(0, 2.1, 0)).project(r3.camera)
+        const box = document.querySelector('canvas:not(#timeline)').getBoundingClientRect()
+        tagEl.style.left = `${box.left + ((at.x + 1) / 2) * box.width}px`
+        tagEl.style.top = `${box.top + ((1 - at.y) / 2) * box.height}px`
+        tagEl.style.visibility = at.z < 1 ? 'visible' : 'hidden'
+      }
+      function placeCamera(between) {
+        const r3 = page.client?.plugins.render3d
+        if (!r3?.camera) return
+        if (orbit.mode === 'seat' || !orbit.at) { r3.release(OWNER); return }
+        const target = orbit.mode === 'body' ? bodyAt(between) : orbit.mode === 'part' ? partAt(orbit.part) : zoneAt(orbit.at)
+        if (!target || !r3.claim(OWNER)) return
+        const { yaw, pitch, dist } = orbit.at
+        r3.camera.position.set(target[0] + dist * Math.sin(yaw) * Math.cos(pitch), target[1] + dist * Math.sin(pitch), target[2] + dist * Math.cos(yaw) * Math.cos(pitch))
+        r3.camera.up.set(0, 1, 0)
+        r3.camera.lookAt(target[0], target[1], target[2])
+      }
+      // A left drag on the game turns the orbit, and the wheel over it brings it in and out, caught before
+      // the player plugin hears them while the orbit has the camera.
+      const onGame = e => e.target?.tagName === 'CANVAS' && e.target.id !== 'timeline'
+      const ours = () => orbit.mode !== 'seat' && orbit.at
+      addEventListener('mousedown', e => { if (ours() && e.button === 0 && onGame(e)) orbit.dragging = true }, true)
+      addEventListener('mouseup', () => { orbit.dragging = false }, true)
+      addEventListener('mousemove', e => {
+        if (!orbit.dragging || !orbit.at) return
+        orbit.at.yaw -= e.movementX * 0.006
+        orbit.at.pitch = clamp(orbit.at.pitch + e.movementY * 0.006, -0.3, 1.4)
+      }, true)
+      addEventListener('wheel', e => {
+        if (!ours() || !onGame(e)) return
+        orbit.at.dist = clamp(orbit.at.dist * Math.exp(e.deltaY * 0.0015), 0.5, 40)
+        e.stopImmediatePropagation()
+        e.preventDefault()
+      }, { capture: true, passive: false })
+
+      // A close-up of one moment of the run: the run put at `seconds` into it and held there, the camera
+      // close on a part of the body (`feet`, `hands`, `hips`, `head`), `around` degrees round from the way
+      // the body faces (to its left), and across the top of the page what is expected there, `expect`, and
+      // what was measured on that step, for a screenshot of just that. Each part has a view of its own when
+      // no `around` is given: the feet from the side, from over the floor looking down on them, so the floor
+      // stands in front of whatever goes through it; the hands and the head from in front and to the side,
+      // clear of what the hands hold; the hips from the side. A frame is drawn before it hands back, so a
+      // screenshot taken then shows it.
+      const captionEl = document.getElementById('caption')
+      const overOrUnder = v => (v == null ? '-' : v >= 0 ? `${cm(v)} over` : `${cm(-v)} under`)
+      const VIEWS = { feet: { around: 90, pitch: 0.35 }, hands: { around: 40, pitch: 0.1 }, hips: { around: 90, pitch: 0.08 }, head: { around: 30, pitch: 0.08 } }
+      function focus(seconds, part, expect, around = VIEWS[part]?.around) {
+        if (!run) throw new Error('focus: no station has been run')
+        if (!PARTS[part]) throw new Error(`focus: no part ${part}: ${Object.keys(PARTS).join(', ')}`)
+        return goTo(run.from + seconds / dt).then(() => hold(async () => {
+          const s = samples.get(rec.n), me = meIn(room())
+          orbit.mode = 'part'
+          orbit.part = part
+          orbit.at = { ...run.camera, yaw: me.data.yaw + (around * Math.PI) / 180, pitch: VIEWS[part].pitch, dist: 1.6 }
+          captionEl.textContent = [
+            expect,
+            `${run.name}, ${at(rec.n)}: ${s.activity}.${s.motion} ${s.clip} at ${s.clipT.toFixed(2)} s`,
+            `measured: the lowest toe ${overOrUnder(s.foot)} the ground${s.short != null ? `; a pinned hand or foot ${cm(s.short)} short of its point` : ''}`,
+          ].join('\n')
+          placeCamera()
+          await page.frame()
+          sampleReach()
+        }))
+      }
+
+      // ---------- the zone bounds ----------
+
+      // Every row of a shapes3d kind that offers activities, drawn as the outline of its box, seen through
+      // whatever stands in front of it: its foot's middle on the row's place, turned by its yaw, as
+      // shapes3d holds a body in it. Built again for each client, whose scene is new.
+      const bounds = { on: true }
+      let boundsOf, boundLines
+      function placeBounds() {
+        const plugins = page.client?.plugins
+        const r3 = plugins?.render3d
+        if (!r3?.scene) return
+        if (boundsOf !== page.client) {
+          boundsOf = page.client
+          boundLines = new Map()
+        }
+        const kinds = plugins.wire.scene.world.shapes3d.kinds
+        const T = r3.THREE
+        const seen = new Set()
+        for (const r of plugins.wire.rows) {
+          const k = kinds[r.kind]
+          if (!k?.activities) continue
+          seen.add(r.id)
+          let lines = boundLines.get(r.id)
+          if (!lines) {
+            const [x, y, z] = k.shape.box.size
+            const geometry = new T.EdgesGeometry(new T.BoxGeometry(x, y, z).translate(0, y / 2, 0))
+            lines = new T.LineSegments(geometry, new T.LineBasicMaterial({ color: '#ffe14d', depthTest: false, transparent: true }))
+            lines.renderOrder = 999
+            r3.scene.add(lines)
+            boundLines.set(r.id, lines)
+          }
+          lines.visible = bounds.on
+          lines.position.fromArray(r.data.pos)
+          lines.rotation.set(0, r.data.yaw ?? 0, 0)
+        }
+        for (const [id, lines] of boundLines) {
+          if (seen.has(id)) continue
+          lines.removeFromParent()
+          lines.geometry.dispose()
+          lines.material.dispose()
+          boundLines.delete(id)
+        }
+      }
+
+      // ---------- the panel's stations, time and camera ----------
+
+      const sf = gui.addFolder('stations')
+      sf.add(wanted, 'station', NAMES).name('station')
+      sf.add({ go: () => begin(wanted.station) }, 'go').name('run it (from the warp)')
+      sf.add({ go: () => runAll() }, 'go').name('run every station')
+      const tf = gui.addFolder('time')
+      tf.add(clock, 'paused').name('paused (` key)').listen()
+      tf.add({ go: () => stepOn() }, 'go').name('one step on (. key)')
+      tf.add({ go: () => goTo(rec.n - 1) }, 'go').name('one step back (, key)')
+      tf.add(clock, 'speed', 0.05, 1, 0.05).name('clock speed (× real time)')
+      tf.add({ go: () => goTo(run?.from ?? 0) }, 'go').name('to the run\'s start')
+      const cf = gui.addFolder('camera')
+      cf.add(orbit, 'mode', ['station', 'body', 'part', 'seat']).name('camera').listen()
+      cf.add(orbit, 'part', Object.keys(PARTS)).name('part (camera on a part)').listen()
+      cf.add({ go: () => { if (run) orbit.at = { ...run.camera } } }, 'go').name('the station\'s view again')
+      cf.add(bounds, 'on').name('zone bounds')
+      addEventListener('keydown', e => {
+        if (e.metaKey || e.ctrlKey || e.altKey || e.repeat) return
+        if (e.target?.tagName === 'INPUT' || e.target?.tagName === 'SELECT') return
+        if (e.key === '`') clock.paused = !clock.paused
+        else if (e.key === '.') stepOn()
+        else if (e.key === ',') goTo(rec.n - 1)
+      })
+
+      // ---------- motion3d ----------
+
+      // The file's settings, as they were, and the panel's copy of them.
+      const spaces = Object.entries(main.world.shapes3d.kinds).filter(([, k]) => k.activities).map(([name]) => name)
+      const fileOf = () => ({
+        ease: main.world.motion3d.ease,
+        fade: main.world.motion3d.kinds.xbot.fade,
+        object: main.world.motion3d.mods.object !== undefined,
+        jumpH: main.world.kinematics3d.kinds.xbot.jump.jumpH,
+        priority: Object.fromEntries(spaces.map(name => [name, main.world.shapes3d.kinds[name].priority ?? 1])),
+      })
+      const was = fileOf()
+      const own = clone(was)
+      const apply = () => {
+        for (const world of worlds()) {
+          world.motion3d.ease = own.ease
+          world.motion3d.kinds.xbot.fade = own.fade
+          if (own.object) world.motion3d.mods.object = 'yard'
+          else delete world.motion3d.mods.object
+          for (const name of spaces) world.shapes3d.kinds[name].priority = own.priority[name]
+          world.kinematics3d.kinds.xbot.jump.jumpH = own.jumpH
+        }
+      }
+      const mf = gui.addFolder('motion3d')
+      mf.add(own, 'ease', 0, 1, 0.01).name('pin ease, s').onChange(apply)
+      mf.add(own, 'fade', 0, 1, 0.01).name('crossfade, s').onChange(apply)
+      mf.add(own, 'object').name('draw on the car').onChange(apply)
+      mf.add(own, 'jumpH', 0, 6, 0.05).name('jump height, m').onChange(apply)
+      const pf = mf.addFolder('priority')
+      for (const name of spaces) pf.add(own.priority, name, 0, 5, 1).onChange(apply)
+      pf.close()
+      mf.add({ copy: () => navigator.clipboard?.writeText(JSON.stringify({ motion3d: { ease: own.ease, fade: own.fade }, priority: own.priority, kinematics3d: { jump: { jumpH: own.jumpH } } }, null, 2)) }, 'copy').name('copy motion3d JSON')
+      mf.add({ reset: () => {
+        Object.assign(own, clone(was))
+        for (const c of gui.controllersRecursive()) c.updateDisplay()
+        apply()
+      } }, 'reset').name('reset to the file')
+      mf.close()
+
+      // ---------- the rifle's carry ----------
+
+      // The rifle carry's anchor in the X Bot's motion3d file, laid into the truth's and the page's copies
+      // of it as it changes.
+      const MOTION = main.world.motion3d.kinds.xbot.motion
+      const anchors = () => [room() && json(readerOf(room()), MOTION), client && json(client.plugins.wire, MOTION)].filter(Boolean).map(f => f.carries.rifle.anchor)
+      const anchorWas = clone(anchors()[0])
+      const rifle = {}
+      const fromFile = a => Object.assign(rifle, { x: a.at[0], y: a.at[1], z: a.at[2], rx: a.turn[0], ry: a.turn[1], rz: a.turn[2] })
+      fromFile(anchorWas)
+      const round = (v, n) => Number(v.toFixed(n))
+      const setRifle = () => {
+        for (const a of anchors()) {
+          a.at = [round(rifle.x, 4), round(rifle.y, 4), round(rifle.z, 4)]
+          a.turn = [round(rifle.rx, 2), round(rifle.ry, 2), round(rifle.rz, 2)]
+        }
+      }
+      // How far the spine turns to aim the rifle level, straight ahead of the legs: the angle from where
+      // the rifle points before the aim's turn to there, degrees; null when not aimed.
+      const ahead = () => {
+        const me = meIn(room())
+        const a = me && client?.plugins.motion3d?.aimed(me.id)
+        if (!a) return null
+        const yaw = me.data.yaw
+        return { aimed: a, level: [Math.sin(yaw), 0, Math.cos(yaw)] }
+      }
+      const spineTurn = () => {
+        const h = ahead()
+        if (!h) return null
+        const [f, l] = [h.aimed.forward, h.level]
+        return Math.acos(clamp(f[0] * l[0] + f[1] * l[1] + f[2] * l[2], -1, 1)) * 180 / Math.PI
+      }
+      // The anchor turned so the rifle, as the clip holds the shoulder, points level ahead: the turn the
+      // aim would make (across about up, then up or down, as motion3d's aim makes it) put into the anchor.
+      const level = () => {
+        const h = ahead()
+        if (!h) return
+        const T = client.plugins.render3d.THREE
+        const f = new T.Vector3().fromArray(h.aimed.forward), want = new T.Vector3().fromArray(h.level)
+        const across = new T.Quaternion().setFromAxisAngle(new T.Vector3(0, 1, 0), Math.atan2(want.x, want.z) - Math.atan2(f.x, f.z))
+        const turn = new T.Quaternion().setFromUnitVectors(f.clone().applyQuaternion(across).normalize(), want).multiply(across)
+        const bone = new T.Quaternion().fromArray(h.aimed.bone)
+        const DEG = Math.PI / 180
+        const was = new T.Quaternion().setFromEuler(new T.Euler(rifle.rx * DEG, rifle.ry * DEG, rifle.rz * DEG, 'XYZ'))
+        const now = bone.clone().invert().multiply(turn).multiply(bone).multiply(was)
+        const e = new T.Euler().setFromQuaternion(now, 'XYZ')
+        Object.assign(rifle, { rx: e.x / DEG, ry: e.y / DEG, rz: e.z / DEG })
+        for (const c of gui.controllersRecursive()) c.updateDisplay()
+        setRifle()
+      }
+      // The anchor set so the rifle sits where the clip's own hands hold it: the rifle's grip on the hand
+      // of the carry's first limb as the clip poses it, turned about the grip until the second limb's
+      // empty lies toward that limb's hand, and the anchor's `at` and `turn` the stock's frame then, in
+      // the anchor bone's.
+      const fit = () => {
+        const me = meIn(room())
+        const a = me && client?.plugins.motion3d?.aimed(me.id)
+        if (!a?.hands?.length || !a.anchor) return
+        const T = client.plugins.render3d.THREE
+        const carry = json(readerOf(room()), MOTION).carries.rifle
+        const prop = client.plugins.motion3d.props(me.id)[main.world.motion3d.kinds.xbot.props.findIndex(p => p.model === carry.prop)]
+        prop.updateWorldMatrix(true, true)
+        const inside = name => {
+          let found
+          prop.traverse(o => { if (!found && o !== prop && o.name.endsWith(name)) found = o })
+          return prop.matrixWorld.clone().invert().multiply(found.matrixWorld)
+        }
+        const rifleAt = new T.Matrix4().fromArray(a.hands[0]).multiply(inside(carry.limbs[0].target).invert())
+        // Turned about the grip until the other limb's empty lies toward that limb's hand.
+        if (a.hands[1]) {
+          const where = m => new T.Vector3().setFromMatrixPosition(m)
+          const grip = where(rifleAt.clone().multiply(inside(carry.limbs[0].target)))
+          const other = where(rifleAt.clone().multiply(inside(carry.limbs[1].target)))
+          const hand = where(new T.Matrix4().fromArray(a.hands[1]))
+          const turn = new T.Quaternion().setFromUnitVectors(other.sub(grip).normalize(), hand.sub(grip).normalize())
+          rifleAt.premultiply(new T.Matrix4().makeTranslation(-grip.x, -grip.y, -grip.z))
+            .premultiply(new T.Matrix4().makeRotationFromQuaternion(turn))
+            .premultiply(new T.Matrix4().makeTranslation(grip.x, grip.y, grip.z))
+        }
+        const local = new T.Matrix4().fromArray(a.anchor).invert().multiply(rifleAt).multiply(inside(carry.anchor.point))
+        const p = new T.Vector3(), q = new T.Quaternion()
+        local.decompose(p, q, new T.Vector3())
+        const e = new T.Euler().setFromQuaternion(q, 'XYZ')
+        const DEG = Math.PI / 180
+        Object.assign(rifle, { x: p.x, y: p.y, z: p.z, rx: e.x / DEG, ry: e.y / DEG, rz: e.z / DEG })
+        for (const c of gui.controllersRecursive()) c.updateDisplay()
+        setRifle()
+      }
+      const rf = gui.addFolder('rifle carry')
+      rf.add(rifle, 'x', -0.4, 0.4, 0.001).name('at x, m').onChange(setRifle)
+      rf.add(rifle, 'y', -0.4, 0.4, 0.001).name('at y, m').onChange(setRifle)
+      rf.add(rifle, 'z', -0.4, 0.4, 0.001).name('at z, m').onChange(setRifle)
+      rf.add(rifle, 'rx', -180, 180, 0.1).name('turn x, °').onChange(setRifle)
+      rf.add(rifle, 'ry', -180, 180, 0.1).name('turn y, °').onChange(setRifle)
+      rf.add(rifle, 'rz', -180, 180, 0.1).name('turn z, °').onChange(setRifle)
+      rf.add({ go: fit }, 'go').name('fit it to the clip\'s hands')
+      rf.add({ go: level }, 'go').name('level it: no spine turn aiming straight ahead')
+      rf.add({ copy: () => navigator.clipboard?.writeText(JSON.stringify({ at: anchors()[0].at, turn: anchors()[0].turn })) }, 'copy').name('copy the anchor JSON')
+      rf.add({ reset: () => { fromFile(anchorWas); for (const c of gui.controllersRecursive()) c.updateDisplay(); setRifle() } }, 'reset').name('reset to the file')
+
+      // ---------- the readout ----------
+
+      // What motion3d has the seat's body doing, off its row in the scene's truth, and the limbs it bends.
+      const fixed = (v, n = 2) => (Array.isArray(v) ? `[${v.map(x => x.toFixed(n)).join(', ')}]` : typeof v === 'number' ? v.toFixed(n) : String(v))
+      const doing = () => {
+        const truthNow = room()
+        const me = meIn(truthNow)
+        if (!me) return []
+        const d = me.data
+        // motion3d fills `offered` the first time it moves the body, after it has stood.
+        const offered = d.offered?.length ? d.offered.map(a => `${a} offered`).join(', ') : 'nothing offered'
+        const s = samples.get(rec.n)
+        const lines = [
+          `${d.activity}${d.motion ? `.${d.motion}` : ''}   ${d.clip ?? ''}   ${offered}`,
+          `space ${d.space ?? 'anywhere'}   along ${d.along === null ? 'none' : fixed(d.along)}   ${d.eased ? 'easing from the last clip' : 'not eased'}   upper half ${d.upperActivity ? `${d.upperActivity} in ${d.upperSpace ?? 'anywhere'}` : 'free'}`,
+          `clip ${d.clip ?? 'none'} at ${fixed(d.clipT ?? 0)} s (${d.state})   ${d.from != null && d.blend < 1 ? `fading from ${d.from}, ${fixed(d.blend)} in` : 'no crossfade'}`,
+          `place ${fixed(d.pos)}   way ${fixed(d.yaw)}   speed ${fixed(d.speed)}   ${d.grounded ? 'on the ground' : 'in the air'}   lowest foot ${s?.foot == null ? '-' : `${(s.foot * 100).toFixed(1)} cm`} over the ground`,
+        ]
+        const w = readerOf(truthNow)
+        let reach = []
+        try { reach = reachesOf(w, me) } catch (e) { caught(e) }
+        const short = client?.plugins.motion3d?.short(me.id) ?? []
+        const turned = spineTurn()
+        lines.push(turned === null ? 'not aimed' : `the spine turns ${turned.toFixed(1)}° to aim level ahead of the legs`)
+        if (reach.length) lines.push(reach.map((r, i) => `${r.bone} pinned ${fixed(r.weight)} short ${short[i] === undefined ? '-' : `${(short[i] * 100).toFixed(1)} cm`}`).join('   '))
+        return lines
+      }
+      // The buttons, off the player's definition (`assets/demo_motion3d.json`'s `keys`): each the keys of the
+      // keyboard and the gamepad's button as a PlayStation and an Xbox pad name it, and what it does in
+      // every stance; then the stance drawn, the weapon the draw key draws, and the key in the buffer.
+      const PAD = { Pad0: '✕/A', Pad1: '○/B', Pad2: '□/X', Pad3: '△/Y', Pad4: 'L1/LB', Pad5: 'R1/RB', Pad6: 'L2/LT', Pad7: 'R2/RT', Pad8: 'Share/View', Pad9: 'Options/Menu', Pad10: 'L3', Pad11: 'R3', Pad12: 'd-pad up', Pad13: 'd-pad down', Pad14: 'd-pad left', Pad15: 'd-pad right' }
+      const DOES = {
+        fast: 'run (held)',
+        guard: 'block, or aim a gun or the bow (held); faces the camera and strafes',
+        jump: 'jump, each stance its own',
+        use: 'roll: running dives, guarding dodges the stick\'s way, standing steps back; in a space, use it',
+        switch: 'switch weapon: put this one away and draw the next (nothing drawn: pick the next)',
+        draw: 'draw or put away the weapon',
+        light: 'light attack; again as it strikes chains the next; aimed, fire',
+        heavy: 'heavy attack; after a light, the finisher; running, the running heavy',
+        special: 'special: a kick, a spell, a block',
+        skill: 'skill: power up, reload, kneel, light the torch, cast',
+        taunt: 'taunt',
+        hit: 'take a hit (guarding: a blocked hit)',
+        die: 'die, then get up',
+        cup: 'pick up or put down the cup',
+        nearer: 'camera nearer',
+        further: 'camera further',
+      }
+      const controls = () => {
+        const t = room()
+        if (!t) return []
+        const k = json(readerOf(t), 'demo_motion3d').player
+        const named = list => {
+          const pad = list.filter(key => PAD[key]).map(key => PAD[key])
+          const keys = list.filter(key => !PAD[key]).map(key => (key === ' ' ? 'Space' : key === 'Mouse0' ? 'left click' : key.length === 1 ? key.toUpperCase() : key))
+          return `${keys.join(' ').padEnd(14)}${pad.join(' ').padEnd(16)}`
+        }
+        const rows = [['fast', k.keys.fast], ['guard', k.keys.guard], ...Object.entries(k.keys.motions), ['nearer', k.keys.nearer], ['further', k.keys.further]]
+        const me = meIn(t)
+        const d = me?.data ?? {}
+        const drawn = k.weapons.includes(d.upperMotion) || Object.values(k.aimOf).includes(d.upperMotion) ? d.upperMotion : d.upperMotion ?? 'nothing drawn'
+        return [
+          'key           pad             does',
+          ...rows.map(([action, list]) => `${named(list)}${DOES[action] ?? action}`),
+          `stance ${drawn}   the draw key draws ${d.weapon}   ${d.guard ? 'guarding' : 'not guarding'}   buffer ${d.queued ? `${d.queued.key} held ${d.queued.age.toFixed(2)} s` : 'empty'}`,
+        ]
+      }
+      const runLines = () => {
+        const lines = []
+        if (run) {
+          const at = run.result ?? `stage ${run.stage + 1} of ${run.stages.length}: ${run.stages[run.stage].label}`
+          lines.push(`station: ${run.name}   step ${rec.n - run.from} of ${rec.end - run.from} (${((rec.n - run.from) * dt).toFixed(2)} s into the run)   ${busy ? 'seeking' : clock.paused ? 'paused' : 'playing'} at ${clock.speed}×`)
+          lines.push(`script: ${at}`)
+          const f = faults()
+          lines.push(f.length ? `${f.length} faults, the first: ${f.slice(0, 3).map(x => x.text).join('; ')}` : 'no faults')
+        } else lines.push(busy ? 'warping to the station…' : 'no station run yet: pick one in the panel and run it')
+        if (all) lines.push(...all.map(a => `${a.result === 'done' ? 'ok  ' : 'FAIL'} ${a.name}: ${a.result}, ${a.seconds} s; ${a.faults}`))
+        return lines
+      }
+
+      // ---------- the timeline ----------
+
+      const tl = document.getElementById('timeline')
+      const tx = tl.getContext('2d')
+      const LEFT = 150
+      const ROWS = [
+        { name: 'script stage', key: s => s.stage, y: 4 },
+        { name: 'activity.motion', key: s => `${s.activity}${s.motion ? `.${s.motion}` : ''}`, y: 22 },
+        { name: 'clip', key: s => s.clip ?? '', y: 40 },
+      ]
+      const GRAPH = { top: 62, bottom: 170 }
+      const hue = text => { let h = 0; for (const c of String(text)) h = (h * 31 + c.charCodeAt(0)) % 360; return h }
+      let scrub
+      const stepAtX = x => {
+        const from = run?.from ?? 0, to = Math.max(rec.end, from + 1)
+        return clamp(Math.round(from + ((x - LEFT) / (tl.clientWidth - LEFT - 8)) * (to - from)), from, rec.end)
+      }
+      for (const type of ['click', 'mousedown', 'contextmenu', 'wheel', 'keydown', 'keyup']) tl.addEventListener(type, e => e.stopPropagation())
+      tl.addEventListener('pointerdown', e => { if (run) { scrub = stepAtX(e.offsetX); tl.setPointerCapture(e.pointerId) } })
+      tl.addEventListener('pointermove', e => { if (scrub !== undefined) scrub = stepAtX(e.offsetX) })
+      tl.addEventListener('pointerup', () => { if (scrub !== undefined) { const k = scrub; scrub = undefined; goTo(k) } })
+
+      function drawTimeline() {
+        const w = tl.clientWidth, h = tl.clientHeight, ratio = devicePixelRatio
+        if (tl.width !== w * ratio || tl.height !== h * ratio) { tl.width = w * ratio; tl.height = h * ratio }
+        tx.setTransform(ratio, 0, 0, ratio, 0, 0)
+        tx.fillStyle = '#111318'
+        tx.fillRect(0, 0, w, h)
+        tx.font = '11px monospace'
+        tx.textBaseline = 'middle'
+        if (!run) {
+          tx.fillStyle = '#9aa'
+          tx.fillText('the timeline of a station\'s run shows here once one is run', 10, h / 2)
+          return
+        }
+        const from = run.from, to = Math.max(rec.end, from + 1), width = w - LEFT - 8
+        const xOf = n => LEFT + ((n - from) / (to - from)) * width
+        const dx = width / (to - from)
+        // The bands: each run of steps with the same text, coloured by it and named where it fits.
+        for (const row of ROWS) {
+          tx.fillStyle = '#9aa'
+          tx.fillText(row.name, 8, row.y + 8)
+          let start = from, text
+          const flush = end => {
+            if (text === undefined) return
+            const x0 = xOf(start), x1 = xOf(end) + dx
+            tx.fillStyle = text === '' || text === null ? '#222' : `hsl(${hue(text)} 45% 32%)`
+            tx.fillRect(x0, row.y, Math.max(1, x1 - x0 - 1), 16)
+            if (x1 - x0 > tx.measureText(String(text)).width + 6) {
+              tx.fillStyle = '#eee'
+              tx.fillText(String(text ?? ''), x0 + 3, row.y + 8)
+            }
+          }
+          for (let n = from; n <= rec.end; n++) {
+            const s = samples.get(n)
+            const k = s ? row.key(s) : undefined
+            if (k !== text) { flush(n - 1); start = n; text = k }
+          }
+          flush(rec.end)
+        }
+        // The crossfades striped over the clip's band.
+        tx.fillStyle = 'rgba(255,255,255,0.35)'
+        for (let n = from; n <= rec.end; n++) {
+          const s = samples.get(n)
+          if (s?.from && s.blend < 1) for (let k = 0; k < 16; k += 4) tx.fillRect(xOf(n), ROWS[2].y + k, Math.max(1, dx), 2)
+        }
+        // The graph: the body's height and its lowest foot over the ground, metres; the eased steps shaded.
+        const ys = []
+        for (let n = from; n <= rec.end; n++) { const s = samples.get(n); if (s) ys.push(s.pos[1], s.foot ?? 0) }
+        const lo = Math.min(0, ...ys), hi = Math.max(0.5, ...ys)
+        const yOf = v => GRAPH.bottom - ((v - lo) / (hi - lo)) * (GRAPH.bottom - GRAPH.top)
+        for (let n = from; n <= rec.end; n++) {
+          const s = samples.get(n)
+          if (!s?.eased) continue
+          tx.fillStyle = s.eased === 'to' ? 'rgba(90,160,255,0.22)' : 'rgba(200,120,255,0.18)'
+          tx.fillRect(xOf(n), GRAPH.top, Math.max(1, dx), GRAPH.bottom - GRAPH.top)
+        }
+        tx.strokeStyle = '#444'
+        tx.beginPath(); tx.moveTo(LEFT, yOf(0)); tx.lineTo(w - 8, yOf(0)); tx.stroke()
+        const line = (get, colour) => {
+          tx.strokeStyle = colour
+          tx.lineWidth = 1.5
+          tx.beginPath()
+          let on = false
+          for (let n = from; n <= rec.end; n++) {
+            const s = samples.get(n)
+            const v = s && get(s)
+            if (v == null) { on = false; continue }
+            if (on) tx.lineTo(xOf(n), yOf(v)); else tx.moveTo(xOf(n), yOf(v))
+            on = true
+          }
+          tx.stroke()
+          tx.lineWidth = 1
+        }
+        line(s => s.pos[1], '#f2f2f2')
+        line(s => s.foot, '#ff9b3d')
+        tx.fillStyle = '#f2f2f2'
+        tx.fillText('height, m', 8, GRAPH.top + 8)
+        tx.fillStyle = '#ff9b3d'
+        tx.fillText('lowest foot over', 8, GRAPH.top + 26)
+        tx.fillText('the ground, m', 8, GRAPH.top + 40)
+        tx.fillStyle = '#b48cff'
+        tx.fillText('shaded: root eased', 8, GRAPH.top + 62)
+        tx.fillStyle = '#9aa'
+        tx.fillText(`${hi.toFixed(2)}`, LEFT - 40, GRAPH.top + 4)
+        tx.fillText(`${lo.toFixed(2)}`, LEFT - 40, GRAPH.bottom - 4)
+        // Where the run is, and where a drag would go.
+        for (const [n, colour] of [[rec.n, '#ffe14d'], ...(scrub !== undefined ? [[scrub, '#4dd2ff']] : [])]) {
+          tx.strokeStyle = colour
+          tx.beginPath(); tx.moveTo(xOf(n) + dx / 2, 0); tx.lineTo(xOf(n) + dx / 2, h); tx.stroke()
+        }
+      }
+
+      // ---------- the loop ----------
+
+      // The playtester handed this client's player and the think, once each client.
+      let handed
+      function handBot() {
+        if (page.client && page.client !== handed && page.client.plugins.playtester) {
+          page.client.plugins.playtester.play(page.client.plugins.player, think)
+          handed = page.client
+        }
+      }
+      const frames = []
+      let last = performance.now(), owed = 0
+      const loop = async now => {
+        frames.push(now)
+        while (frames[0] < now - 1000) frames.shift()
+        const worst = frames.slice(1).reduce((m, t, i) => Math.max(m, t - frames[i]), 0)
+        owed = clock.paused || busy ? 0 : owed + Math.min((now - last) / 1000, 0.25) * clock.speed
+        last = now
+        // A frame that throws is shown, and the next frame goes on.
+        try {
+          if (!busy) {
+            if (!clock.paused) {
+              captionEl.textContent = ''
+              page.input()
+              while (owed >= dt && !clock.paused) { owed -= dt; await stepOnce() }
+            }
+            // A key sent on a step the recording had gone past cut it there: the keys took over the run.
+            if (rec.end < lastEnd) {
+              for (const n of [...samples.keys()]) if (n > rec.end) samples.delete(n)
+              if (run && !run.result) run.result = `the keys took over at step ${rec.n - run.from}`
+            }
+            lastEnd = rec.end
+            handBot()
+            const between = clock.paused ? undefined : owed / dt
+            placeCamera(between)
+            placeBounds()
+            await page.frame(between)
+            placeTag()
+            sampleReach()
+            // A finished script holds the clock a second on, then pauses it, so the run ends where it did.
+            if (run?.result && !run.held && !clock.paused && !inTurn) {
+              run.over ??= rec.n
+              if (rec.n - run.over >= Math.round(1 / dt)) { clock.paused = true; run.held = true }
+            }
+          }
+        } catch (e) { caught(e) }
+        readoutEl.textContent = [
+          'W A S D  walk     Shift  run     Space  jump     right drag  look     wheel  zoom     E  use',
+          'mats: backflip (pink), pick up (blue), shiver (pale blue, stand still)',
+          'orange wall: hang; A D shimmy, W + E climb up, S + E drop      chair: sit, E again to stand',
+          'bar and ceiling: hang; A D along, E drop      rope and climbing wall: hold W to climb (S down the wall), E let go',
+          'swing, run wall, vault: E      edge: E teeter, E again step down, S step back      stairs: hold W to climb',
+          'pool: E fall in, hold W to swim, E by the far wall to climb out      desk, bed: E, and E again to get up',
+          'car: E get in, W A S D drive, Space honk, E get out      beam: E get on, hold W to sneak along it, E get off',
+          ...controls(),
+          '` pause     . one step on     , one step back     left drag  turn the station camera     wheel  its distance',
+          `${frames.length} fps  longest frame ${worst.toFixed(1)} ms`,
+          `${chosen.scene}  step ${rec.n}`,
+          ...runLines(),
+          ...doing(),
+          ...errors,
+        ].join('\n')
+        try { drawTimeline() } catch (e) { caught(e) }
+        requestAnimationFrame(loop)
+      }
+      requestAnimationFrame(loop)
+
+      window.dev = {
+        rec, page, samples, STATIONS: NAMES, clock, orbit,
+        get current() { return run }, get all() { return all }, get busy() { return busy },
+        run: begin, runNow, runAll, goTo, stepOn, focus, measure, worst, faults, LIMITS,
+        pause: on => { clock.paused = on },
+        rifle, setRifle, level, fit, spineTurn,
+      }
+      if (query.get('station') !== null) begin(wanted.station)
+    </script>
+  </body>
+</html>
