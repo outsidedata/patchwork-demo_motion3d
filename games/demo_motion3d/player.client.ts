@@ -10,7 +10,8 @@
 //   fast      held to run
 //   guard     held to block, or to aim with a gun or the bow, facing the way the camera looks
 //   motions   each a motion's name to its keys, pressed as `press` with that name: motion3d plays it
-//             in the activity the body is in, a zone's, or its own
+//             in the activity the body is in, a zone's, or its own; the jump's keys are held as well,
+//             sent as `jumping`, so a jump let go of as it rises is cut short
 //   nearer, further   the camera in and out by `camera.step` of the wheel's pixels a press
 // The mouse dragged with `drag` held sends `look` with its pixels times `sens`, right turning the view
 // right and down tilting it down; the wheel sends `zoom` with the pixels it turned. chasecamera3d
@@ -40,7 +41,8 @@ export function setup(row: Row, plugins: Plugins) {
       { keys: keys.stick, send: (x, y) => ['stick', x, y], analog: true },
       { keys: keys.look, send: (x, y) => ['turn', x, y], analog: true },
     ],
-    hold: [{ keys: keys.fast, send: v => ['fast', v] }, { keys: keys.guard, send: v => ['guard', v] }],
+    // The jump's keys are held as well as pressed: let go as the body rises, the jump is cut short.
+    hold: [{ keys: keys.fast, send: v => ['fast', v] }, { keys: keys.guard, send: v => ['guard', v] }, { keys: keys.motions.jump, send: v => ['jumping', v] }],
     press,
     drag: { key: keys.drag, send: (dx, dy) => ['look', -dx * k.sens, dy * k.sens] },
     wheel: dy => ['zoom', dy],

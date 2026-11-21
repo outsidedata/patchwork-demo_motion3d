@@ -19,6 +19,13 @@ panel tunes motion3d's settings and whose readout shows what the body is doing. 
   puts away, Q switches to the next, F held blocks (or aims a gun or the bow) and strafes facing the
   camera, J or a left click is the light attack (again as it strikes chains the next), K heavy (after a
   light, the finisher), L special, R skill, T taunt, H takes a hit, X dies and gets up, E rolls.
+- Beside the start, the training dummy: the attacks bend onto it from up to 4 m off (any side, turned
+  away) and land their blow on it, and it plays its hit. H while moving flinches the upper body over the
+  run, the legs running on; a hard turn at a run leans the body into it. Space tapped hops, held jumps
+  high; a running jump goes further.
+- Past the jump pad's row, the traversal course: two plain boxes with no station placed. Run (Shift) at
+  the low one and the body vaults it; run at the head-high one and it jumps up, catches the top and
+  climbs onto it. Any box of the yard of those heights does the same.
 - Near the start: in the pink zone E plays a backflip, in the blue zone it picks something up, and on
   open ground it steps back. Under the orange wall's lip, E jumps up and hangs from it; A and D
   shimmy along the lip until the hands would leave it, W + E climbs up onto the wall's top, S + E drops
@@ -49,14 +56,41 @@ panel tunes motion3d's settings and whose readout shows what the body is doing. 
   and falling by motion3d's `jump` and `fall`; in a station's activity, the motion file picks each
   motion and the point it plays against, and motion3d holds the body there, kinematics3d moving it along
   a lip, a rope, a wall, the beam or the water by the same `move`, turning it under the ceiling and in
-  the water. Its `press` act holds every key in its input buffer and hands it to motion3d once a move
-  may play it: an attack's next is held until the one playing has struck, a key during a draw until
-  the draw is done (the definition's `buffer`). The guard key is held, not pressed: each step it is
+  the water. Its `press` act queues every key in motion3d's input buffer, which plays it once a move
+  may: an attack's next is held until the one playing has struck, a key during a draw until the draw is
+  done (the X Bot's motion3d file's `buffer`). The guard key is held, not pressed: each step it is
   held the rule presses `guard`, else `unguard`.
-- The stances are moves of the `walk` activity: a weapon's draw plays over the upper half and ends in
-  a move of the weapon's name that holds its carry (the prop in the hands, `carries`); every move of
-  the stance's own (`<weapon>stand`, `walk`, `run`, `guardwalk`, `block`, the attacks, the rolls) plays
-  `from` that move. The props are boxes and cylinders, `assets/props.mjs`. The yard's `guard` and
+- The stances are activities of their own, each weapon's, offered with `walk` by the anywhere shape: a
+  weapon's draw plays over the upper half and ends in a move of the weapon's name that holds its carry
+  (the prop in the hands, `carries`); every move of the stance's own (`<weapon>stand`, `walk`, `run`,
+  `guardwalk`, `block`, the attacks, the rolls) plays `from` that move, and the unarmed walk's moves
+  say `!armed` (the yard's state: a stance is up), so the legs take the stance's own. A switch puts the
+  weapon away and draws the next across activities (`then: "<weapon>.draw<weapon>"`).
+- The attacks give `warp`, and the player rule sets `target` to the nearest dummy within its
+  definition's `lock`; each attack clip's `blow` window (`xbot.rig.json`'s markers, just before its
+  strike to just after) is when its blow lands, which the dummy (`dummy.sim.ts`, an X Bot of its own)
+  reads off the row's `windows`, taking the hit where the striking limb is drawn within its reach.
+- `vaultover` and `climbup` are offered by the sides of the yard's solid boxes (their `solid` entries,
+  motion3d's Solids), a run into one at the right height playing them; the lip, the vault point and
+  the face stand off the side as the yard's stations measured them. The props are boxes and
+  cylinders, `assets/props.mjs`.
+- Every motion that takes E from moving about onto a station gives a `warp` (motion3d's Warp): it
+  begins where E stands and facing as E faces, and is bent onto its point by its `until`, with no
+  snap. The vaults bend until the hand plants, the jumps up and the walk-ins until their takeoff, the
+  chair, the rope swing and the run wall until the seconds their plants give, the loops half a second.
+- Every guard walk, guard run, strafe and aim gives `mix: "way"` (motion3d's Mixes): its clips are
+  drawn together by the way E is walked, kept in step by the left foot coming down (the file's
+  `down`, 0.02 m), so turning while strafing blends from one direction into the next.
+- Every walk and its run name each other as their `gait` (motion3d's Gaits): the run key held, E
+  speeds up through a mix of the two, the run coming in as the speed rises, with no restart.
+- The walk activity starts, stops and turns round: pushed from standing E plays `start` (`Start
+  Walking (2)`), steering toward the stick, into the walk at its second foot down; let go, `stopwalk`
+  or `stoprun`; walked back further than the kind's `move.reverse` (135°), `turnwalk` or `turnrun`. A
+  start or a stop gives way at once to the stick pushed or let go again (`yields`).
+- The X Bot's kind inertializes (`blend: "inertial"`, motion3d's Inertialization): each change of clip
+  draws the new clip whole and decays the pose E left in onto it, so a change cut short goes on from
+  the pose drawn.
+- The yard's `guard` and
   `near` states (`plugins/yard/yard.kinematics3d.ts`) are the guard key held and a station in reach,
   so E rolls only away from one.
 - What the X Bot can do is its motion3d file, `assets/xbot.motion3d.json`: every activity, its motions,
@@ -108,7 +142,13 @@ the lip, shimmies to its end and climbs onto the top; drops back down; sits in t
 the cold room; hangs from the bar and the ceiling and moves along them; climbs the rope and the wall;
 swings onto the platform; runs along the wall; vaults; teeters at the edge and steps down; climbs the
 stairs, falls into the pool, swims across and climbs out; sits at the desk; lies on the bed; and gets
-into the car, drives it, honks and gets out; draws the rifle, aims it with the guard held, strafes and
-puts it away; switches while a draw plays, the switch held until it is done; and draws every weapon in
-turn, standing and walking on its own clips, chaining its lights from the buffer, stepping back, taking
-a hit and jumping in each.
+into the car, drives it, honks and gets out; chains three lights pressed during the first swing, each
+from the one before's strike; jumps the axe's jump off the ground on its takeoff and lands as its clip
+does; jumps higher held than tapped, and further running; lands a light attack on the dummy from two
+metres off on every side, and misses with nothing to bend onto; flinches over a run and leans into a
+turn; vaults the plain low box and climbs onto the plain head-high one; and, run at the low box on a
+slant, begins the vault on its own line with no jump or snap and is the square vault from the hand
+plant on; at every station begins its move with no jump or snap; and, strafing with the stick swept
+from forward to left, blends from the forward walk into the left strafe in step with no restart; and,
+walking with the run key held, speeds up through a mix of the walk and the run in step with no restart;
+starts toward the stick from standing, stops when let go, and turns round on a 180 when walked back.

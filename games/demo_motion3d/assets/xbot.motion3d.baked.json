@@ -12,6 +12,26 @@
    "spot": ["LeftFoot", "RightFoot"],
    "on": "both"
   },
+  "walkstart": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "walkstop": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "runstop": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "walkturn": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
+  "runturn": {
+   "spot": ["LeftFoot", "RightFoot"],
+   "on": "begin"
+  },
   "jump": {
    "spot": ["LeftFoot", "RightFoot"],
    "on": "begin"
@@ -1224,6 +1244,31 @@
    "run": {
     "beginOffset": [0, 0, 0],
     "endOffset": [0, 0, 0],
+    "beginTurn": 0
+   },
+   "walkstart": {
+    "beginOffset": [0, 0.075, 0],
+    "endOffset": [-0.043, 0.132, 0.824],
+    "beginTurn": 0
+   },
+   "walkstop": {
+    "beginOffset": [0, 0.162, 0],
+    "endOffset": [0.02, 0.137, 1.61],
+    "beginTurn": 0
+   },
+   "runstop": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0.022, -0.099, 2.863],
+    "beginTurn": 0
+   },
+   "walkturn": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [-0.041, 0, 0.025],
+    "beginTurn": 0
+   },
+   "runturn": {
+    "beginOffset": [0, 0, 0],
+    "endOffset": [0.036, 0.004, 0.31],
     "beginTurn": 0
    },
    "jump": {

@@ -79,6 +79,10 @@
       //                     page draws the car, or where its row stands (`world.motion3d.mods.object`)
       //   priority          each space's priority (shapes3d's kind's `priority`, 1 where it gives none)
       //   jump height, m    the X Bot's `world.kinematics3d.kinds.xbot.jump.jumpH`, how high a jump rises
+      //   jump speed boost  the X Bot's `world.kinematics3d.kinds.xbot.jump.jumpVelocityBoostMagnitude`, the times
+      //                     its speed across is multiplied by on taking off
+      //   air accel, 1/s   the X Bot's `world.kinematics3d.kinds.xbot.fall.airAccel`, how fast its speed across
+      //                     eases toward the stick's in the air
       // `copy motion3d JSON` copies the panel's numbers, and `reset to the file` puts the file's back.
       //
       // The rifle carry: the rifle's anchor in the X Bot's motion3d file (`at`, metres, and `turn`, degrees,
@@ -555,6 +559,65 @@
             camera: { zone: 'beamzone', look: [0, 0.8, 3], yaw: Math.PI / 2, pitch: 0.2, dist: 8 },
           }
         },
+        'combo: three lights pressed at once chain': () => ({
+          at: [0, 0, -8, 0],
+          stages: [
+            still, send('press', 'light'), send('press', 'light'), send('press', 'light'), motion('light1', 1),
+            motion('light2', 4), motion('light3', 4), until('back to standing', d => d.motion === 'stand', 6), wait(1),
+          ],
+          camera: { zone: 'partyzone', look: [4, 1, -8], yaw: Math.PI / 2, pitch: 0.15, dist: 5 },
+        }),
+        'dummy: a light from a metre and a half, turned away, lands': () => {
+          const [x, , z] = pos('dummy')
+          return {
+            at: [x - 1.5, 0, z, Math.PI / 2 + 0.7],
+            stages: [
+              still, send('press', 'light'), motion('light1', 1), until('the blow window open', d => d.windows.includes('blow'), 3),
+              until('the dummy hit', (d, rows) => rows.find(r => r.kind === 'dummy')?.data.motion === 'hit', 2), wait(2),
+            ],
+            camera: { zone: 'partyzone', look: [x - 4 - pos('partyzone')[0] + 3, 1, z - pos('partyzone')[2]], yaw: 0, pitch: 0.2, dist: 5 },
+          }
+        },
+        'flinch over a run, lean into a turn': () => ({
+          at: [0, 0, -8, 0],
+          stages: [
+            send('fast', 1), send('stick', 0, -1), motion('run', 2), wait(0.7), send('press', 'hit'),
+            until('flinching over the run', d => d.adds?.length > 0 && d.motion === 'run', 1), wait(0.6),
+            send('look', 1.2, 0), until('leaning', d => Math.abs(d.lean ?? 0) > 0.08, 2), wait(0.5),
+            send('stick', 0, 0), send('fast', 0), motion('stand', 3), wait(1),
+          ],
+          camera: { zone: 'partyzone', look: [4, 1, -4], yaw: Math.PI / 2, pitch: 0.15, dist: 9 },
+        }),
+        'jump: a tap hops, a hold goes high': () => ({
+          at: [0, 0, -8, 0],
+          stages: [
+            still, send('jumping', 1), send('press', 'jump'), send('jumping', 0), motion('jump', 1), until('landed', d => d.grounded, 3), motion('stand', 3), wait(1),
+            send('jumping', 1), send('press', 'jump'), motion('jump', 1), until('landed', d => d.grounded, 4), motion('stand', 3), wait(1),
+          ],
+          camera: { zone: 'partyzone', look: [4, 1.5, -6], yaw: Math.PI / 2, pitch: 0.15, dist: 9 },
+        }),
+        'traversal: run at the low box and vault it': () => {
+          const [x, , z] = pos('vaultbox')
+          return {
+            at: [x, 0, z - 7, 0],
+            stages: [
+              send('fast', 1), send('stick', 0, -1), until('vaulting', d => d.activity === 'vaultover', 4), walking,
+              send('stick', 0, 0), send('fast', 0), motion('stand', 3), wait(1),
+            ],
+            camera: { zone: 'partyzone', look: [x - pos('partyzone')[0], 0.8, z - pos('partyzone')[2]], yaw: -Math.PI / 2, pitch: 0.15, dist: 7 },
+          }
+        },
+        'traversal: run at the high box and climb onto it': () => {
+          const [x, , z] = pos('climbbox')
+          return {
+            at: [x, 0, z - 5, 0],
+            stages: [
+              send('fast', 1), send('stick', 0, -1), until('jumping up', d => d.activity === 'climbup', 4), until('climbing over', d => d.motion === 'over', 4),
+              walking, send('stick', 0, 0), send('fast', 0), wait(1.5),
+            ],
+            camera: { zone: 'partyzone', look: [x - pos('partyzone')[0], 1.6, z - 1 - pos('partyzone')[2]], yaw: -Math.PI / 2, pitch: 0.15, dist: 8 },
+          }
+        },
         'car: get in, drive, honk, get out': () => {
           const [x, , z] = pos('carzone')
           const car = rows => rows.find(r => r.kind === 'car')
@@ -1018,6 +1081,8 @@
         fade: main.world.motion3d.kinds.xbot.fade,
         object: main.world.motion3d.mods.object !== undefined,
         jumpH: main.world.kinematics3d.kinds.xbot.jump.jumpH,
+        boost: main.world.kinematics3d.kinds.xbot.jump.jumpVelocityBoostMagnitude,
+        airAccel: main.world.kinematics3d.kinds.xbot.fall.airAccel,
         priority: Object.fromEntries(spaces.map(name => [name, main.world.shapes3d.kinds[name].priority ?? 1])),
       })
       const was = fileOf()
@@ -1030,6 +1095,8 @@
           else delete world.motion3d.mods.object
           for (const name of spaces) world.shapes3d.kinds[name].priority = own.priority[name]
           world.kinematics3d.kinds.xbot.jump.jumpH = own.jumpH
+          world.kinematics3d.kinds.xbot.jump.jumpVelocityBoostMagnitude = own.boost
+          world.kinematics3d.kinds.xbot.fall.airAccel = own.airAccel
         }
       }
       const mf = gui.addFolder('motion3d')
@@ -1037,10 +1104,12 @@
       mf.add(own, 'fade', 0, 1, 0.01).name('crossfade, s').onChange(apply)
       mf.add(own, 'object').name('draw on the car').onChange(apply)
       mf.add(own, 'jumpH', 0, 6, 0.05).name('jump height, m').onChange(apply)
+      mf.add(own, 'boost', 0, 6, 0.05).name('jump speed boost, ×').onChange(apply)
+      mf.add(own, 'airAccel', 0.05, 10, 0.05).name('air accel, 1/s').onChange(apply)
       const pf = mf.addFolder('priority')
       for (const name of spaces) pf.add(own.priority, name, 0, 5, 1).onChange(apply)
       pf.close()
-      mf.add({ copy: () => navigator.clipboard?.writeText(JSON.stringify({ motion3d: { ease: own.ease, fade: own.fade }, priority: own.priority, kinematics3d: { jump: { jumpH: own.jumpH } } }, null, 2)) }, 'copy').name('copy motion3d JSON')
+      mf.add({ copy: () => navigator.clipboard?.writeText(JSON.stringify({ motion3d: { ease: own.ease, fade: own.fade }, priority: own.priority, kinematics3d: { jump: { jumpH: own.jumpH, jumpVelocityBoostMagnitude: own.boost }, fall: { airAccel: own.airAccel } } }, null, 2)) }, 'copy').name('copy motion3d JSON')
       mf.add({ reset: () => {
         Object.assign(own, clone(was))
         for (const c of gui.controllersRecursive()) c.updateDisplay()
@@ -1177,7 +1246,8 @@
       }
       // The buttons, off the player's definition (`assets/demo_motion3d.json`'s `keys`): each the keys of the
       // keyboard and the gamepad's button as a PlayStation and an Xbox pad name it, and what it does in
-      // every stance; then the stance drawn, the weapon the draw key draws, and the key in the buffer.
+      // every stance; then the stance drawn, the weapon the draw key draws, and the keys in the buffer;
+      // then the markers the clips crossed this step and the windows open.
       const PAD = { Pad0: '✕/A', Pad1: '○/B', Pad2: '□/X', Pad3: '△/Y', Pad4: 'L1/LB', Pad5: 'R1/RB', Pad6: 'L2/LT', Pad7: 'R2/RT', Pad8: 'Share/View', Pad9: 'Options/Menu', Pad10: 'L3', Pad11: 'R3', Pad12: 'd-pad up', Pad13: 'd-pad down', Pad14: 'd-pad left', Pad15: 'd-pad right' }
       const DOES = {
         fast: 'run (held)',
@@ -1213,7 +1283,8 @@
         return [
           'key           pad             does',
           ...rows.map(([action, list]) => `${named(list)}${DOES[action] ?? action}`),
-          `stance ${drawn}   the draw key draws ${d.weapon}   ${d.guard ? 'guarding' : 'not guarding'}   buffer ${d.queued ? `${d.queued.key} held ${d.queued.age.toFixed(2)} s` : 'empty'}`,
+          `stance ${drawn}   the draw key draws ${d.weapon}   ${d.guard ? 'guarding' : 'not guarding'}   buffer ${d.queued?.length ? d.queued.map(q => `${q.key} ${q.age.toFixed(2)} s`).join(', ') : 'empty'}`,
+          `marked ${d.markers?.length ? d.markers.map(m => m.name).join(', ') : '-'}   open ${d.windows?.length ? d.windows.join(', ') : '-'}`,
         ]
       }
       const runLines = () => {

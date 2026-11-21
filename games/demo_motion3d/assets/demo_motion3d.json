@@ -27,19 +27,9 @@
     },
     "weapons": ["greatsword", "swordshield", "sword", "axe", "rifle", "pistol", "bow", "torch", "magic"],
     "aimOf": { "rifle": "aim", "pistol": "pistolaim", "bow": "bowaim" },
-    "buffer": {
-      "hold": 0.4,
-      "cancel": {
-        "*": { "*": 0.85 },
-        "light": { "light": 0.45, "heavy": 0.45, "use": 0.3, "*": 0.7 },
-        "heavy": { "light": 0.6, "heavy": 0.6, "use": 0.4, "*": 0.8 },
-        "special": { "use": 0.4, "*": 0.75 },
-        "use": { "light": 0.6, "heavy": 0.6, "use": 0.65, "*": 0.75 },
-        "hit": { "use": 0.5, "*": 0.8 },
-        "die": { "*": 1 }
-      }
-    }
+    "lock": 4
   },
+  "dummy": { "weapons": [], "aimOf": {}, "reach": 0.7, "height": [0.3, 2] },
   "swingzone": { "rope": { "colour": "#b08a5a", "radius": 0.02 }, "pivot": [0.135, 7.136, 1.603], "length": 4.207 },
   "lift": { "speed": 1, "wait": 3 },
   "pool": { "look": { "colour": "#3a8fd0", "opacity": 0.55 }, "water": { "at": [0, -1.062, 2.9], "size": [3, 5] } },

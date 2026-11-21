@@ -30,12 +30,13 @@ page's readout prints this table from them.
 | C | Share / View | pick up or put down the cup |
 | | d-pad up / down | camera nearer / further |
 
-Input buffering (`player.sim.ts`): a key pressed is held for `buffer.hold` seconds (0.4) until a move
-can play it. While an attack, roll or hit plays, a key waits, without its seconds counting, until that
-move has played the share of itself `buffer.cancel` gives (a light into the next light at 45%, a roll
-out of a light at 30%, anything out of a death never). While a draw, put-away or shot plays on the upper
-half, a key waits until it ends. So a light pressed three times during the first swing plays the
-whole chain, each swing as the one before strikes. A switch pressed mid-draw switches once the draw is up.
+Input buffering (motion3d's, `xbot.motion3d.json`'s `buffer`): a key pressed is held for `buffer.hold`
+seconds (0.4) until a move can play it. While an attack, roll or hit plays, a key waits, without its
+seconds counting, until that move's clip reaches the time `buffer.cancel` gives (a light into the next
+light at its strike, the second its blow lands as the bake measures it; a roll out of a light at 30%;
+anything out of a death never). While a draw, put-away or shot plays on the upper half, a key waits
+until it ends. So a light pressed three times during the first swing plays the whole chain, each swing
+as the one before strikes. A switch pressed mid-draw switches once the draw is up.
 
 ## The stances
 
@@ -80,10 +81,7 @@ What the motion file cannot say as it stands; the rest was built.
    same; a press with the body turned any other way picks from the camera's frame.
 5. **A clip played backwards.** The torch and magic packs have a draw and no put-away; a draw played
    backwards would be one. The put-away is instant, the prop let go.
-6. **A move that ends the moment its clip strikes.** A combo's cancel point is the game's number per key
-   (`buffer.cancel`), not where the clip's blow lands, which the bake measures (`segments.<limb>.peak`
-   in `mixamo-measures.json`). Needed: the move's own strike time, read from the bake, for the buffer.
-7. **A blocked hit, a hit from a side, a death from a side, picked by where the blow came from.** No
+6. **A blocked hit, a hit from a side, a death from a side, picked by where the blow came from.** No
    rule hits the body; the hit key plays the front one.
 
 ## Stations a move would need

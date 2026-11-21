@@ -5,7 +5,8 @@
 // (`demo_motion3d.bake.ts`):
 //   node games/demo_motion3d/assets/yard.mjs
 // It writes the kinds it makes, their prefabs and their actors anew, and leaves every other line of the
-// scene as it was: the zones, the wall's ledge and the chair written by hand.
+// scene as it was: the zones, the wall's ledge, the chair, the plain boxes, the jump pad and its ramp and
+// block, and the lift and its block, written by hand (`BY_HAND`).
 //
 // Every size and every point comes from what the clips measure (`xbot.rig.baked.json`): `ends`, each
 // bone where it is drawn in the body's frame (x left, y up, z ahead, metres from the root), and
@@ -69,7 +70,7 @@ const sceneFile = path.join(here, '..', 'main.scene.json')
 const scene = JSON.parse(readFileSync(sceneFile, 'utf8'))
 // The kinds of the scene written by hand, which this leaves as they are; every other shapes3d kind is
 // this file's, written anew.
-const BY_HAND = ['partyzone', 'sadzone', 'wall', 'ledgezone', 'chair', 'chairback', 'chairzone']
+const BY_HAND = ['partyzone', 'sadzone', 'wall', 'ledgezone', 'chair', 'chairback', 'chairzone', 'vaultbox', 'climbbox', 'padramp', 'padblock', 'pad', 'lift', 'liftblock']
 // A one-shot carries travel ending further than `moves` metres from its start, and keeps its turn turning
 // `turns` degrees or further (the X Bot's motion3d file).
 const { moves: MOVES, turns: TURNS } = JSON.parse(readFileSync(path.join(here, 'xbot.motion3d.json'), 'utf8'))

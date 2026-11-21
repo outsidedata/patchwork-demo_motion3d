@@ -9,7 +9,9 @@
 // the rope swing, the climbing wall, the run wall, the vault, the edge, the stairs and the pool, the
 // desk, the ceiling, the bed and the car; and the jump pad, a block up a ramp with a pad at its end,
 // which the game's `jumppad` plugin makes from `world.jumppad` and which throws the body; and the lift, a
-// hyperplane riding from the ground up to the top of the `liftblock` beside it and back (`lift.sim.ts`).
+// hyperplane riding from the ground up to the top of the `liftblock` beside it and back (`lift.sim.ts`);
+// and the training `dummy` beside the start, an X Bot that takes the blows the seat's body lands on it
+// (`dummy.sim.ts`).
 // The things and the stations' spaces are shapes3d's kinds
 // (`world.shapes3d.kinds`), none with a rule: what each is, how it looks and what it offers is its
 // entry. The car is a kind of the game's own (`car.sim.ts`), which drives, and makes and carries its
@@ -20,6 +22,7 @@ import type { Scene, Sim } from '#engine/engine.ts'
 import { scenemanager } from '#plugins/scenemanager/scenemanager.sim.ts'
 import { loader } from '#plugins/loader/loader.sim.ts'
 import { car } from './car.sim.ts'
+import { dummy } from './dummy.sim.ts'
 import { lift } from './lift.sim.ts'
 import { player } from './player.sim.ts'
 import { start } from './start.sim.ts'
@@ -29,6 +32,6 @@ import file from './main.scene.json' with { type: 'json' }
 // Every shapes3d kind of the scene, none with a rule but the lift's.
 const shapes = Object.fromEntries(Object.keys(file.world.shapes3d.kinds).map(kind => [kind, {}]))
 
-export const sim: Sim = { ...shapes, scenemanager, loader, player, start, car, jumppad, lift }
+export const sim: Sim = { ...shapes, scenemanager, loader, player, start, car, jumppad, lift, dummy }
 
 export const scene = file as Scene

@@ -24,6 +24,21 @@
    "gear": 0,
    "stance": "stand"
   },
+  "walkstart": {
+   "file": "packs/mixamo-motions/Start Walking (2).fbx"
+  },
+  "walkstop": {
+   "file": "packs/mixamo-motions/Stop Walking.fbx"
+  },
+  "runstop": {
+   "file": "packs/mixamo-motions/Run To Stop.fbx"
+  },
+  "walkturn": {
+   "file": "packs/mixamo-motions/Walking Turn 180.fbx"
+  },
+  "runturn": {
+   "file": "packs/mixamo-motions/Running Turn 180.fbx"
+  },
   "jump": {
    "file": "packs/mixamo-motions/Jumping Up (2).fbx"
   },
@@ -332,28 +347,76 @@
    "file": "packs/mixamo-motions/Long Right Side Step.fbx"
   },
   "uajab": {
-   "file": "packs/mixamo-motions/Lead Jab (4).fbx"
+   "file": "packs/mixamo-motions/Lead Jab (4).fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "uacross": {
-   "file": "packs/mixamo-motions/Cross Punch.fbx"
+   "file": "packs/mixamo-motions/Cross Punch.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "uahook": {
-   "file": "packs/mixamo-motions/Hook Punch.fbx"
+   "file": "packs/mixamo-motions/Hook Punch.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "uauppercut": {
-   "file": "packs/mixamo-motions/Uppercut.fbx"
+   "file": "packs/mixamo-motions/Uppercut.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "uakick": {
-   "file": "packs/mixamo-motions/Roundhouse Kick.fbx"
+   "file": "packs/mixamo-motions/Roundhouse Kick.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "uahurricane": {
-   "file": "packs/mixamo-motions/Hurricane Kick.fbx"
+   "file": "packs/mixamo-motions/Hurricane Kick.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "uaflykick": {
-   "file": "packs/mixamo-motions/Flying Kick.fbx"
+   "file": "packs/mixamo-motions/Flying Kick.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "uammakick": {
-   "file": "packs/mixamo-motions/Mma Kick.fbx"
+   "file": "packs/mixamo-motions/Mma Kick.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "uafireball": {
    "file": "packs/mixamo-motions/Fireball.fbx"
@@ -425,31 +488,79 @@
    "file": "packs/mixamo-motions/Sheath A Great Sword 1.fbx"
   },
   "gsslash1": {
-   "file": "packs/Great Sword Pack 30FPS/great sword slash (4).fbx"
+   "file": "packs/Great Sword Pack 30FPS/great sword slash (4).fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "gsslash2": {
-   "file": "packs/Great Sword Pack 30FPS/great sword slash (3).fbx"
+   "file": "packs/Great Sword Pack 30FPS/great sword slash (3).fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "gsslash3": {
-   "file": "packs/Great Sword Pack 30FPS/great sword slash (2).fbx"
+   "file": "packs/Great Sword Pack 30FPS/great sword slash (2).fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "gscombo": {
-   "file": "packs/Great Sword Pack 30FPS/great sword slash.fbx"
+   "file": "packs/Great Sword Pack 30FPS/great sword slash.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "gsspin": {
-   "file": "packs/Great Sword Pack 30FPS/great sword high spin attack.fbx"
+   "file": "packs/Great Sword Pack 30FPS/great sword high spin attack.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "gsjumpattack": {
-   "file": "packs/Great Sword Pack 30FPS/great sword jump attack.fbx"
+   "file": "packs/Great Sword Pack 30FPS/great sword jump attack.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "gsslide": {
-   "file": "packs/Great Sword Pack 30FPS/great sword slide attack.fbx"
+   "file": "packs/Great Sword Pack 30FPS/great sword slide attack.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "gshilt": {
    "file": "packs/Great Sword Pack 30FPS/great sword attack.fbx"
   },
   "gskick": {
-   "file": "packs/Great Sword Pack 30FPS/great sword kick (2).fbx"
+   "file": "packs/Great Sword Pack 30FPS/great sword kick (2).fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "gspowerup": {
    "file": "packs/Great Sword Pack 30FPS/great sword power up.fbx"
@@ -522,31 +633,79 @@
    "file": "packs/Pro Sword and Shield Pack 30FPS/sheath sword 1.fbx"
   },
   "ssslash1": {
-   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash (5).fbx"
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash (5).fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "ssslash2": {
-   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash (2).fbx"
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash (2).fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "ssslash3": {
-   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash.fbx"
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "sshigh": {
-   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield attack.fbx"
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield attack.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "sscombo": {
-   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash (4).fbx"
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield slash (4).fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "ssjumpattack": {
-   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield attack (2).fbx"
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield attack (2).fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "sslow": {
-   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield attack (4).fbx"
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield attack (4).fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "sshilt": {
    "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield attack (3).fbx"
   },
   "sskick": {
-   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield kick.fbx"
+   "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield kick.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "sspowerup": {
    "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield power up.fbx"
@@ -584,19 +743,49 @@
    "loop": true
   },
   "osoutward": {
-   "file": "packs/mixamo-motions/Stable Sword Outward Slash.fbx"
+   "file": "packs/mixamo-motions/Stable Sword Outward Slash.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "osinward": {
-   "file": "packs/mixamo-motions/Stable Sword Inward Slash.fbx"
+   "file": "packs/mixamo-motions/Stable Sword Inward Slash.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "osthrust": {
-   "file": "packs/mixamo-motions/Thrust Slash.fbx"
+   "file": "packs/mixamo-motions/Thrust Slash.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "osadvance": {
-   "file": "packs/mixamo-motions/Slash Advance.fbx"
+   "file": "packs/mixamo-motions/Slash Advance.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "oscombo": {
-   "file": "packs/mixamo-motions/One Hand Sword Combo.fbx"
+   "file": "packs/mixamo-motions/One Hand Sword Combo.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "oscast": {
    "file": "packs/Pro Sword and Shield Pack 30FPS/sword and shield casting (2).fbx"
@@ -639,28 +828,76 @@
    "file": "packs/Pro Melee Axe Pack 30FPS/standing jump.fbx"
   },
   "axhorizontal": {
-   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack horizontal.fbx"
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack horizontal.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "axbackhand": {
-   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack backhand.fbx"
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack backhand.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "axdownward": {
-   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack downward.fbx"
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack downward.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "axspinhigh": {
-   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack 360 high.fbx"
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack 360 high.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "axspinlow": {
-   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack 360 low.fbx"
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack 360 low.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "axcombo": {
-   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee combo attack ver. 2.fbx"
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee combo attack ver. 2.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "axjumpattack": {
-   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee run jump attack.fbx"
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee run jump attack.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "axkick": {
-   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack kick ver. 1.fbx"
+   "file": "packs/Pro Melee Axe Pack 30FPS/standing melee attack kick ver. 1.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "axbattlecry": {
    "file": "packs/Pro Melee Axe Pack 30FPS/standing taunt battlecry.fbx"
@@ -706,13 +943,31 @@
    "file": "packs/Basic Shooter Pack 30FPS/reloading.fbx"
   },
   "rfbutt": {
-   "file": "packs/mixamo-motions/Rifle Punch.fbx"
+   "file": "packs/mixamo-motions/Rifle Punch.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "rfstab": {
-   "file": "packs/mixamo-motions/Bayonet Stab.fbx"
+   "file": "packs/mixamo-motions/Bayonet Stab.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "rfkick": {
-   "file": "packs/mixamo-motions/Rifle Turn And Kick.fbx"
+   "file": "packs/mixamo-motions/Rifle Turn And Kick.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "rfsignal": {
    "file": "packs/mixamo-motions/Military Signaling.fbx"
@@ -780,7 +1035,13 @@
    "file": "packs/mixamo-motions/Shooting Gun.fbx"
   },
   "ptwhip": {
-   "file": "packs/mixamo-motions/Pistol Whip.fbx"
+   "file": "packs/mixamo-motions/Pistol Whip.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "ptkneel": {
    "file": "packs/Pistol-Handgun Locomotion Pack 30FPS/pistol stand to kneel.fbx"
@@ -870,13 +1131,31 @@
    "file": "packs/Pro Longbow Pack 30FPS/standing aim overdraw.fbx"
   },
   "bwpunch": {
-   "file": "packs/Pro Longbow Pack 30FPS/standing melee punch.fbx"
+   "file": "packs/Pro Longbow Pack 30FPS/standing melee punch.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "bwkick": {
-   "file": "packs/Pro Longbow Pack 30FPS/standing melee kick.fbx"
+   "file": "packs/Pro Longbow Pack 30FPS/standing melee kick.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "bwblock": {
-   "file": "packs/Pro Longbow Pack 30FPS/standing block.fbx"
+   "file": "packs/Pro Longbow Pack 30FPS/standing block.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "bwdodgeforward": {
    "file": "packs/Pro Longbow Pack 30FPS/standing dodge forward.fbx"
@@ -960,25 +1239,67 @@
    "file": "packs/mixamo-motions/Standing Torch Jump.fbx"
   },
   "tcswing1": {
-   "file": "packs/mixamo-motions/Standing Torch Melee Attack 01.fbx"
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack 01.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "tcswing2": {
-   "file": "packs/mixamo-motions/Standing Torch Melee Attack 02.fbx"
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack 02.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "tcstab": {
-   "file": "packs/mixamo-motions/Standing Torch Melee Attack Stab.fbx"
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack Stab.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "tccombo3": {
-   "file": "packs/mixamo-motions/Standing Torch Melee Attack 03.fbx"
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack 03.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "tccombo4": {
-   "file": "packs/mixamo-motions/Standing Torch Melee Attack 04.fbx"
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack 04.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "tccombo5": {
-   "file": "packs/mixamo-motions/Standing Torch Melee Attack 05.fbx"
+   "file": "packs/mixamo-motions/Standing Torch Melee Attack 05.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "tcwebs": {
-   "file": "packs/mixamo-motions/Standing Torch Burn Webs.fbx"
+   "file": "packs/mixamo-motions/Standing Torch Burn Webs.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "tclight": {
    "file": "packs/mixamo-motions/Standing Torch Light Torch.fbx"
@@ -1032,25 +1353,67 @@
    "file": "packs/Pro Magic Pack 30FPS/Standing Land To Standing Idle.fbx"
   },
   "mgbolt1": {
-   "file": "packs/Pro Magic Pack 30FPS/Standing 1H Magic Attack 01.fbx"
+   "file": "packs/Pro Magic Pack 30FPS/Standing 1H Magic Attack 01.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "mgbolt2": {
-   "file": "packs/Pro Magic Pack 30FPS/Standing 1H Magic Attack 02.fbx"
+   "file": "packs/Pro Magic Pack 30FPS/Standing 1H Magic Attack 02.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "mgbolt3": {
-   "file": "packs/Pro Magic Pack 30FPS/Standing 1H Magic Attack 03.fbx"
+   "file": "packs/Pro Magic Pack 30FPS/Standing 1H Magic Attack 03.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "mgblast": {
-   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Attack 01.fbx"
+   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Attack 01.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "mgfinisher": {
-   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Attack 05.fbx"
+   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Attack 05.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "mgarea": {
-   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Area Attack 01.fbx"
+   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Area Attack 01.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "mgnova": {
-   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Area Attack 02.fbx"
+   "file": "packs/Pro Magic Pack 30FPS/Standing 2H Magic Area Attack 02.fbx",
+   "markers": {
+    "blow": [
+     "strike-0.08",
+     "strike+0.08"
+    ]
+   }
   },
   "mgcast": {
    "file": "packs/Pro Magic Pack 30FPS/Standing 2H Cast Spell 01.fbx"
